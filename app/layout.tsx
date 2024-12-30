@@ -23,7 +23,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={montserrat.className}>
-      <body className="bg-gray-100 flex flex-col h-[100dvh]">
+      <body className="bg-gray-50 flex flex-col h-[100dvh]">
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />

@@ -17,10 +17,10 @@ export default {
         wider: "0.2em",  // Más espaciado, por ejemplo
       },
       fontWeight: {
-        thin: 100,
-        light: 300,
-        normal: 400,
-        medium: 500,
+        thin: '100',
+        light: '300',
+        normal: '400',
+        medium: '500',
       },
     },
   },
