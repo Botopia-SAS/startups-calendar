@@ -12,6 +12,16 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
+      letterSpacing: {
+        extra: "0.12em", // Espaciado personalizado
+        wider: "0.2em",  // Más espaciado, por ejemplo
+      },
+      fontWeight: {
+        thin: 100,
+        light: 300,
+        normal: 400,
+        medium: 500,
+      },
     },
   },
   plugins: [],

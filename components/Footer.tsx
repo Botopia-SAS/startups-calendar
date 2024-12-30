@@ -2,7 +2,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-800 text-white py-4 w-full">
+    <footer className="bg-gray-50 text-black py-4 w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
         {/* Logo o Información */}
         <div className="flex items-center space-x-2">
@@ -11,7 +11,7 @@ const Footer = () => {
             alt="Startups Calendar Logo"
             className="h-8"
           />
-          <span className="text-sm md:text-base">© 2023 Startups Calendar</span>
+          <span className="text-sm md:text-base">© 2025 Startups Calendar</span>
         </div>
 
         {/* Navegación */}

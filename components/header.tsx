@@ -20,7 +20,7 @@ const Header = () => {
               href="/noticias"
               className="text-gray-600 hover:text-blue-500 font-medium "
             >
-              Noticias
+              Nosotros
             </a>
             <a
               href="/blog"
