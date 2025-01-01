@@ -94,7 +94,7 @@ const AddEvent = () => {
   return (
     <section className="bg-gray-50 min-h-screen py-10">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-6">Agrega tu Evento</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-black">Agrega tu Evento</h1>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
           {/* Información de la Empresa */}
           <h2 className="text-xl font-bold mb-4">Información de la Empresa</h2>
