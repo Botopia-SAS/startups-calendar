@@ -1,7 +1,6 @@
 'use client';
 import React, { FormEvent, useState } from 'react';
 import useSubmitEvent from '@/hooks/useSubmitEvent';
-import { set } from 'mongoose';
 
 const AddEvent = () => {
 
