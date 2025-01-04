@@ -107,7 +107,7 @@ const NewsletterForm = () => {
         <p className="text-center mt-4 text-gray-500 text-sm">
           *Al enviar tus datos a Startups Calendar aceptas nuestros{' '}
           <Link
-            href="app/terms-and-conditions"
+            href="/terms-and-conditions"
             className="text-orange-500 hover:underline">
             Términos y Condiciones
           </Link>
