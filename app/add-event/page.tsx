@@ -17,12 +17,45 @@ const AddEvent = () => {
   const [representativeName, setRepresentativeName] = useState('');
   const [representativePhone, setRepresentativePhone] = useState('');
   const [representativeId, setRepresentativeId] = useState('');
+  const [isUploading, setIsUploading] = useState(false);
+  const [messageimg, setMessage] = useState('');
+  const [isLoadingg, setIsLoading] = useState(false);
+
 
   const { submitEvent, isLoading, message } = useSubmitEvent();
 
-  
+  const handleImageUpload = async (file: File) => {
+    setIsUploading(true);
+
+    const formData = new FormData();
+    formData.append('file', file);
+    formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || '');
+
+    try {
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: 'POST',
+          body: formData,
+        }
+      );
+
+      const data = await response.json();
+      setLogo(data.secure_url); // Guarda el enlace público de la imagen
+      setMessage('Imagen cargada con éxito');
+    } catch (error) {
+      console.error('Error al subir la imagen:', error);
+      setMessage('Error al subir la imagen. Por favor, intenta nuevamente.');
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsLoading(true); // Indica que el formulario está siendo enviado
+
     const form = {
       name,
       description,
@@ -37,9 +70,9 @@ const AddEvent = () => {
       representativeName,
       representativePhone,
       representativeId,
-    }  
+    }
 
-    const response = await fetch('/api/submit',{
+    const response = await fetch('/api/submit', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -66,29 +99,10 @@ const AddEvent = () => {
     setCompanyId('');
     setRepresentativeName('');
     setRepresentativePhone('');
-    setRepresentativeId('');   
+    setRepresentativeId('');
 
     //Submit via API
     console.log(form);
-  }
-
-  const handleFileChange = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const form = {
-      name,
-      description,
-      date,
-      time,
-      location,
-      logo,
-      link,
-      companyName,
-      companyEmail,
-      companyId,
-      representativeName,
-      representativePhone,
-      representativeId,
-    }  
   }
 
   return (
@@ -209,7 +223,7 @@ const AddEvent = () => {
               name="eventName"
               placeholder="Escribe el nombre del evento"
               value={name}
-              onChange={ e => setName(e.target.value) }
+              onChange={e => setName(e.target.value)}
               required
             />
           </div>
@@ -285,8 +299,17 @@ const AddEvent = () => {
               type="file"
               name="logo"
               accept="image/*"
-              required
+              onChange={(e) => {
+                if (e.target.files) {
+                  handleImageUpload(e.target.files[0]);
+                }
+              }}
             />
+            {logo && logo !== 'https://example.com/default-logo.png' && !isUploading && (
+              <p className="text-sm text-green-500 mt-2">
+                Imagen cargada con éxito: <a href={logo} target="_blank" rel="noopener noreferrer">Ver Imagen</a>
+              </p>
+            )}
           </div>
 
           <div className="mb-4">
@@ -308,12 +331,18 @@ const AddEvent = () => {
           {/* Botón Enviar */}
           <div className="flex items-center justify-center">
             <button
-              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${(isUploading || isLoading) && 'opacity-50 cursor-not-allowed'
+                }`}
               type="submit"
-              disabled={isLoading}
+              disabled={isUploading || isLoading} // Deshabilita el botón durante la carga o envío
             >
-              {isLoading ? 'Enviando...' : 'Enviar'}
+              {isUploading
+                ? 'Subiendo Imagen...'
+                : isLoading
+                  ? 'Enviando...'
+                  : 'Enviar'}
             </button>
+
           </div>
           {message && <p className="mt-4 text-center text-gray-700">{message}</p>}
         </form>
