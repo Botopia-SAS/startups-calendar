@@ -48,6 +48,7 @@ const AddEvent = () => {
       setMessage('Error al subir la imagen. Por favor, intenta nuevamente.');
     } finally {
       setIsUploading(false);
+      setIsLoading(false); // Restablece el estado de carga
     }
   };
 
@@ -85,7 +86,7 @@ const AddEvent = () => {
 
     console.log(content)
 
-    alert(content.data.tableRange)
+    alert(content.message)
 
     setName('');
     setDescription('');
@@ -103,6 +104,7 @@ const AddEvent = () => {
 
     //Submit via API
     console.log(form);
+    setLogo('https://example.com/default-logo.png');
   }
 
   return (
@@ -111,7 +113,7 @@ const AddEvent = () => {
         <h1 className="text-3xl font-bold text-center mb-6 text-black">Agrega tu Evento</h1>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
           {/* Información de la Empresa */}
-          <h2 className="text-xl font-bold mb-4">Información de la Empresa</h2>
+          <h2 className="text-xl font-bold mb-4 text-black">Información de la Empresa</h2>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyName">
               Nombre de la Empresa
@@ -161,7 +163,7 @@ const AddEvent = () => {
           </div>
 
           {/* Información del Representante */}
-          <h2 className="text-xl font-bold mb-4">Información del Representante</h2>
+          <h2 className="text-xl font-bold mb-4 text-black">Información del Representante</h2>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="representativeName">
               Nombre del Representante
