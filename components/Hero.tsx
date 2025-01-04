@@ -42,9 +42,13 @@ const Hero = () => {
               AGREGA TU EVENTO
             </Link>
 
-            <button className="bg-cyan-400 hover:bg-blue-600 text-white py-2 px-6 rounded-full shadow">
+            <Link
+              href="/subscribe"
+              className="bg-cyan-400 hover:bg-cyan-500 text-white py-2 px-6 rounded-full shadow text-center"
+            >
               SUSCRÍBETE
-            </button>
+            </Link>
+
           </div>
         </div>
       </section>
