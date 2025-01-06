@@ -13,14 +13,17 @@ export default {
         foreground: "var(--foreground)",
       },
       letterSpacing: {
-        extra: "0.12em", // Espaciado personalizado
-        wider: "0.2em",  // Más espaciado, por ejemplo
+        extra: "0.10em", // Espaciado personalizado
+        wider: "0.15em",  // Más espaciado, por ejemplo
       },
       fontWeight: {
         thin: '100',
         light: '300',
         normal: '400',
         medium: '500',
+      },
+      fontFamily: {
+        roboto: ['"Roboto Flex"', 'sans-serif'], // Agregamos la fuente Roboto Flex
       },
     },
   },
