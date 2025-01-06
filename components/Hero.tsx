@@ -30,9 +30,13 @@ const Hero = () => {
           </h2>
 
           <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 lg:gap-8 lg:mb-2 lg:mt-10 py-4">
-            <button className="bg-green-950 hover:bg-blue-600 text-white py-2 px-6 rounded-full shadow">
+            <Link
+              href="/events"
+              className="bg-green-950 hover:bg-blue-600 text-white py-2 px-6 rounded-full shadow text-center"
+            >
               VER CALENDARIO DE EVENTOS
-            </button>
+            </Link>
+
 
             {/* Botón de Navegación con Link */}
             <Link

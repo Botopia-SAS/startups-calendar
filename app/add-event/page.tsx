@@ -20,6 +20,8 @@ const AddEvent = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [messageimg, setMessage] = useState('');
   const [isLoadingg, setIsLoading] = useState(false);
+  const [price, setPrice] = useState('');
+  const [isFree, setIsFree] = useState(false);
 
 
   const { submitEvent, isLoading, message } = useSubmitEvent();
@@ -71,6 +73,8 @@ const AddEvent = () => {
       representativeName,
       representativePhone,
       representativeId,
+      price: isFree ? 'Gratis' : price,
+      status: 'Pendiente', // Estado predeterminado
     }
 
     const response = await fetch('/api/submit', {
@@ -88,6 +92,7 @@ const AddEvent = () => {
 
     alert(content.message)
 
+    // Limpiar el formulario
     setName('');
     setDescription('');
     setDate('');
@@ -95,16 +100,16 @@ const AddEvent = () => {
     setLocation('');
     setLogo('');
     setLink('');
+    setPrice('');
     setCompanyName('');
     setCompanyEmail('');
     setCompanyId('');
     setRepresentativeName('');
     setRepresentativePhone('');
     setRepresentativeId('');
-
-    //Submit via API
-    console.log(form);
+    setIsFree(false);
     setLogo('https://example.com/default-logo.png');
+    setIsLoading(false);
   }
 
   return (
@@ -328,6 +333,38 @@ const AddEvent = () => {
               onChange={e => setLink(e.target.value)}
               required
             />
+          </div>
+
+          {/* Precio del Evento */}
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
+              Precio del Evento
+            </label>
+            <div className="flex items-center gap-4">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="price"
+                type="number"
+                name="price"
+                placeholder="Escribe el precio en dólares"
+                value={isFree ? 'Gratis' : price}
+                onChange={e => setPrice(e.target.value)}
+                disabled={isFree}
+                required={!isFree}
+              />
+              <label className="flex items-center gap-2 text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={isFree}
+                  onChange={e => {
+                    setIsFree(e.target.checked);
+                    if (e.target.checked) setPrice('Gratis');
+                    else setPrice('');
+                  }}
+                />
+                Gratis
+              </label>
+            </div>
           </div>
 
           {/* Botón Enviar */}
