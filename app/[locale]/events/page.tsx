@@ -122,7 +122,7 @@ const Page = () => {
             <select
               value={monthFilter}
               onChange={(e) => setMonthFilter(e.target.value)}
-              className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white"
             >
               <option value="">Filtrar por mes</option>
               <option value="1">Enero</option>
@@ -143,12 +143,13 @@ const Page = () => {
             <select
               value={priceFilter}
               onChange={(e) => setPriceFilter(e.target.value)}
-              className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white"
             >
               <option value="">Filtrar por precio</option>
               <option value="Gratis">Gratis</option>
               <option value="Pagado">Pagado</option>
             </select>
+
 
             {/* Botón para quitar filtros */}
             <button
