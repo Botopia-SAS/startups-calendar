@@ -57,5 +57,32 @@
             "Actions": "Acciones",
             "ViewSite": "Sitio del evento"
         }
+    },
+    "Newsletter": {
+    "Title": "¡Suscríbete a nuestro Newsletter!",
+    "Placeholders": {
+      "FullName": "Tu nombre completo",
+      "Email": "Correo electrónico",
+      "Company": "Empresa",
+      "City": "Ciudad",
+      "Country": "País",
+      "Linkedin": "Perfil de LinkedIn (opcional)"
+    },
+    "Buttons": {
+      "Subscribe": "Suscribirme",
+      "Submitting": "Enviando..."
+    },
+    "Messages": {
+      "Success": "¡Gracias por suscribirte!",
+      "Error": "Algo salió mal. Intenta nuevamente.",
+      "GenericError": "Error de conexión. Por favor, intenta más tarde."
+    },
+    "Validation": {
+      "LinkedinInvalid": "Por favor, ingresa un perfil de LinkedIn válido."
+    },
+    "Footer": {
+      "Text": "*Al enviar tus datos a Startups Calendar aceptas nuestros",
+      "Terms": "Términos y Condiciones"
     }
+  }
 }

@@ -8,6 +8,7 @@ const AddEvent = () => {
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
   const [time, setTime] = useState('');
+  const [endTime, setEndTime] = useState(''); // Hora de finalización
   const [location, setLocation] = useState('');
   const [logo, setLogo] = useState('https://example.com/default-logo.png');
   const [link, setLink] = useState('');
@@ -15,7 +16,11 @@ const AddEvent = () => {
   const [companyEmail, setCompanyEmail] = useState('');
   const [companyId, setCompanyId] = useState('');
   const [representativeName, setRepresentativeName] = useState('');
+  const [representativeRole, setRepresentativeRole] = useState(''); // Cargo del representante
+  const [representativeEmail, setRepresentativeEmail] = useState(''); // Correo del representante
   const [representativePhone, setRepresentativePhone] = useState('');
+  const [phoneCode, setPhoneCode] = useState('+57'); // Código del celular
+  const [representativeLinkedIn, setRepresentativeLinkedIn] = useState(''); // Nuevo estado para LinkedIn
   const [representativeId, setRepresentativeId] = useState('');
   const [isUploading, setIsUploading] = useState(false);
   const [messageimg, setMessage] = useState('');
@@ -64,6 +69,7 @@ const AddEvent = () => {
       description,
       date,
       time,
+      endTime, // Hora de finalización
       location,
       logo: logo || 'https://example.com/default-logo.png',
       link,
@@ -71,7 +77,10 @@ const AddEvent = () => {
       companyEmail,
       companyId,
       representativeName,
-      representativePhone,
+      representativeRole, // Cargo del representante
+      representativeEmail, // Correo del representante
+      representativePhone: `${phoneCode.replace('+', '')} ${representativePhone}`, // Elimina el símbolo '+' del código // Código del celular + teléfono
+      representativeLinkedIn, // Incluido en los datos enviados
       representativeId,
       price: isFree ? 'Gratis' : price,
       status: 'Pendiente', // Estado predeterminado
@@ -93,22 +102,27 @@ const AddEvent = () => {
     alert(content.message)
 
     // Limpiar el formulario
+    // Limpiar el formulario
     setName('');
     setDescription('');
     setDate('');
     setTime('');
+    setEndTime(''); // Limpiar hora de finalización
     setLocation('');
-    setLogo('');
+    setLogo('https://example.com/default-logo.png');
     setLink('');
     setPrice('');
     setCompanyName('');
     setCompanyEmail('');
     setCompanyId('');
     setRepresentativeName('');
+    setRepresentativeRole('');
+    setRepresentativeEmail('');
     setRepresentativePhone('');
+    setPhoneCode('+57');
+    setRepresentativeLinkedIn(''); // Limpia el LinkedIn
     setRepresentativeId('');
     setIsFree(false);
-    setLogo('https://example.com/default-logo.png');
     setIsLoading(false);
   }
 
@@ -131,7 +145,6 @@ const AddEvent = () => {
               placeholder="Escribe el nombre de la empresa"
               value={companyName}
               onChange={e => setCompanyName(e.target.value)}
-              required
             />
           </div>
 
@@ -147,7 +160,6 @@ const AddEvent = () => {
               placeholder="Correo electrónico de la empresa"
               value={companyEmail}
               onChange={e => setCompanyEmail(e.target.value)}
-              required
             />
           </div>
 
@@ -163,7 +175,6 @@ const AddEvent = () => {
               placeholder="Número de identificación de la empresa"
               value={companyId}
               onChange={e => setCompanyId(e.target.value)}
-              required
             />
           </div>
 
@@ -181,8 +192,52 @@ const AddEvent = () => {
               placeholder="Escribe el nombre del representante"
               value={representativeName}
               onChange={e => setRepresentativeName(e.target.value)}
-              required
             />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">LinkedIn del Representante</label>
+            <input
+              type="url"
+              placeholder="Enlace de LinkedIn"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={representativeLinkedIn}
+              onChange={(e) => setRepresentativeLinkedIn(e.target.value)}
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Código del Celular</label>
+            <select
+              value={phoneCode}
+              onChange={(e) => setPhoneCode(e.target.value)}
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            >
+              <option value="57">+57 (Colombia)</option>
+              <option value="1">+1 (Estados Unidos)</option>
+              <option value="54">+54 (Argentina)</option>
+              <option value="591">+591 (Bolivia)</option>
+              <option value="55">+55 (Brasil)</option>
+              <option value="56">+56 (Chile)</option>
+              <option value="506">+506 (Costa Rica)</option>
+              <option value="53">+53 (Cuba)</option>
+              <option value="593">+593 (Ecuador)</option>
+              <option value="503">+503 (El Salvador)</option>
+              <option value="502">+502 (Guatemala)</option>
+              <option value="509">+509 (Haití)</option>
+              <option value="504">+504 (Honduras)</option>
+              <option value="52">+52 (México)</option>
+              <option value="505">+505 (Nicaragua)</option>
+              <option value="507">+507 (Panamá)</option>
+              <option value="595">+595 (Paraguay)</option>
+              <option value="51">+51 (Perú)</option>
+              <option value="1-787">+1-787 (Puerto Rico)</option>
+              <option value="1-939">+1-939 (Puerto Rico)</option>
+              <option value="598">+598 (Uruguay)</option>
+              <option value="58">+58 (Venezuela)</option>
+
+              {/* Agrega más códigos según sea necesario */}
+            </select>
           </div>
 
           <div className="mb-4">
@@ -197,7 +252,6 @@ const AddEvent = () => {
               placeholder="Teléfono del representante"
               value={representativePhone}
               onChange={e => setRepresentativePhone(e.target.value)}
-              required
             />
           </div>
 
@@ -213,7 +267,17 @@ const AddEvent = () => {
               placeholder="Número de identificación del representante"
               value={representativeId}
               onChange={e => setRepresentativeId(e.target.value)}
-              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Cargo del Representante</label>
+            <input
+              type="text"
+              placeholder="Cargo del representante"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={representativeRole}
+              onChange={(e) => setRepresentativeRole(e.target.value)}
             />
           </div>
 
@@ -276,6 +340,18 @@ const AddEvent = () => {
               name="time"
               value={time}
               onChange={e => setTime(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-gray-700 text-sm font-bold mb-2">Hora de Finalización</label>
+            <input
+              type="time"
+              placeholder="Hora de finalización"
+              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              value={endTime}
+              onChange={(e) => setEndTime(e.target.value)}
               required
             />
           </div>

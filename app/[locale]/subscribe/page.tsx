@@ -1,13 +1,22 @@
 'use client';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useTranslations, useLocale } from 'next-intl';
 
 const NewsletterForm = () => {
+  const t = useTranslations('Newsletter'); // Obtiene traducciones del namespace 'Hero'
+
+  const locale = useLocale(); // Idioma actual // Idioma actual
+
+  // Asegúrate de que el `locale` esté disponible antes de renderizar
+  if (!locale) return null;
+
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
-  const [city, setCity] = useState(''); // Estado para la ciudad
-  const [country, setCountry] = useState(''); // Estado para el país
+  const [city, setCity] = useState('');
+  const [country, setCountry] = useState('');
+  const [linkedin, setLinkedin] = useState(''); // Estado para LinkedIn
   const [message, setMessage] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -16,7 +25,14 @@ const NewsletterForm = () => {
     setIsSubmitting(true);
     setMessage('');
 
-    const form = { fullName, email, company, city, country };
+    // Validación del campo LinkedIn
+    if (linkedin && !/^https?:\/\/(www\.)?linkedin\.com\/.*$/.test(linkedin)) {
+      setMessage(t('Validation.LinkedinInvalid'));
+      setIsSubmitting(false);
+      return;
+    }
+
+    const form = { fullName, email, company, city, country, linkedin };
 
     try {
       const response = await fetch('/api/subscribe', {
@@ -30,17 +46,18 @@ const NewsletterForm = () => {
       const data = await response.json();
 
       if (response.ok) {
-        setMessage('¡Gracias por suscribirte!');
+        setMessage(t('Messages.Success'));
         setFullName('');
         setEmail('');
         setCompany('');
-        setCity(''); // Resetea el estado de la ciudad
-        setCountry(''); // Resetea el estado del país
+        setCity('');
+        setCountry('');
+        setLinkedin(''); // Resetea el estado del perfil de LinkedIn
       } else {
         setMessage(data.message || 'Algo salió mal. Intenta nuevamente.');
       }
     } catch (error) {
-      setMessage('Error de conexión. Por favor, intenta más tarde.');
+      setMessage(t('Messages.GenericError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -50,7 +67,7 @@ const NewsletterForm = () => {
     <section className="bg-gray-50 min-h-[calc(80vh-80px)] flex items-center justify-center">
       <div className="w-full px-4">
         <h2 className="text-2xl font-semibold text-center text-orange-500 mb-8">
-          ¡Suscríbete a nuestro Newsletter!
+          {t('Title')}
         </h2>
 
         <form
@@ -59,7 +76,7 @@ const NewsletterForm = () => {
         >
           <input
             type="text"
-            placeholder="Tu nombre completo"
+            placeholder={t('Placeholders.FullName')}
             className="border border-gray-300 rounded-full px-4 py-2 w-full md:w-auto"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
@@ -67,7 +84,7 @@ const NewsletterForm = () => {
           />
           <input
             type="email"
-            placeholder="Correo electrónico"
+            placeholder={t('Placeholders.Email')}
             className="border border-gray-300 rounded-full px-4 py-2 w-full md:w-auto"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -75,41 +92,48 @@ const NewsletterForm = () => {
           />
           <input
             type="text"
-            placeholder="Empresa"
+            placeholder={t('Placeholders.Company')}
             className="border border-gray-300 rounded-full px-4 py-2 w-full md:w-auto"
             value={company}
             onChange={(e) => setCompany(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Ciudad"
+            placeholder={t('Placeholders.City')}
             className="border border-gray-300 rounded-full px-4 py-2 w-full md:w-auto"
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
           <input
             type="text"
-            placeholder="País"
+            placeholder={t('Placeholders.Country')}
             className="border border-gray-300 rounded-full px-4 py-2 w-full md:w-auto"
             value={country}
             onChange={(e) => setCountry(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder={t('Placeholders.Linkedin')}
+            className="border border-gray-300 rounded-full px-4 py-2 w-full md:w-auto"
+            value={linkedin}
+            onChange={(e) => setLinkedin(e.target.value)}
           />
           <button
             type="submit"
             className="bg-orange-500 hover:bg-orange-600 text-white rounded-full px-6 py-2 font-semibold"
             disabled={isSubmitting}
           >
-            {isSubmitting ? 'Enviando...' : 'Suscribirme'}
+            {isSubmitting ? t('Buttons.Submitting') : t('Buttons.Subscribe')}
           </button>
         </form>
 
         {/* Nota de términos y condiciones */}
         <p className="text-center mt-4 text-gray-500 text-sm">
-          *Al enviar tus datos a Startups Calendar aceptas nuestros{' '}
+          {t('Footer.Text')}{' '}
           <Link
-            href="/terms-and-conditions"
+            href={`/${locale}/terms-and-conditions`}
             className="text-orange-500 hover:underline">
-            Términos y Condiciones
+            {t('Footer.Terms')}
           </Link>
         </p>
 

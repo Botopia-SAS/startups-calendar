@@ -7,6 +7,7 @@ type SubscriberForm = {
   company: string;
   city: string;
   country: string;
+  linkedin: string;
 };
 
 export default async function handler(
@@ -33,11 +34,11 @@ export default async function handler(
     // Agregar los datos a Google Sheets
     await sheets.spreadsheets.values.append({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Newsletter!A1:E1', // Cambia el rango para incluir la columna de país
+      range: 'Newsletter!A1:F1', // Cambia el rango para incluir la columna de país
       valueInputOption: 'USER_ENTERED',
       requestBody: {
         values: [
-          [body.fullName, body.email, body.company, body.city, body.country],
+          [body.fullName, body.email, body.company, body.city, body.country, body.linkedin],
         ],
       },
     });

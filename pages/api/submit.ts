@@ -6,6 +6,7 @@ type SheetForm = {
     description: String
     date: String
     time: String
+    endTime: string; // Hora de finalización
     location: String
     logo: String
     link: String
@@ -13,7 +14,10 @@ type SheetForm = {
     companyEmail: String
     companyId: String
     representativeName: String
+    representativeRole: string; // Cargo del representante
+    representativeEmail: string; // Correo del representante
     representativePhone: String
+    representativeLinkedIn: string; // LinkedIn del representante
     representativeId: String
     price: String
 }
@@ -55,6 +59,7 @@ export default async function handler(
                     body.description || '',
                     body.date || '',
                     body.time || '',
+                    body.endTime || '', // Hora de finalización
                     body.location || '',
                     body.logo || '',
                     body.link || '',
@@ -62,7 +67,10 @@ export default async function handler(
                     body.companyEmail || '',
                     body.companyId || '',
                     body.representativeName || '',
+                    body.representativeRole || '', // Cargo del representante
+                    body.representativeEmail || '', // Correo del representante
                     body.representativePhone || '',
+                    body.representativeLinkedIn || '', // LinkedIn del representante
                     body.representativeId || '',
                     body.price || '',
                     'Pendiente', // Estado predeterminado
