@@ -1,0 +1,21 @@
+{
+    "Header": {
+        "Aboutus": "Nosotros",
+        "Blog": "Blog",
+        "Partners": "Aliados"
+    },
+    "Hero": {
+        "Title": "Descubre los próximos eventos de",
+        "Subtitle": "Startups y Tecnología",
+        "Year": "2025",
+        "ViewCalendar": "Ver Calendario de Eventos",
+        "AddEvent": "Agrega tu Evento",
+        "Subscribe": "Suscríbete"
+    },
+    "Footer": {
+        "Policies": "Políticas",
+        "Privacy": "Privacidad",
+        "Contact": "Contacto",
+        "Copyright": "© 2025 Startups Calendar"
+    }
+}

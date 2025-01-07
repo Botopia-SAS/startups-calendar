@@ -1,0 +1,21 @@
+{
+    "Header": {
+        "Aboutus": "About us",
+        "Blog": "Blog",
+        "Partners": "Partners"
+    },
+    "Hero": {
+        "Title": "Discover upcoming events in",
+        "Subtitle": "Startups and Technology",
+        "Year": "2025",
+        "ViewCalendar": "View Event Calendar",
+        "AddEvent": "Add Your Event",
+        "Subscribe": "Subscribe"
+    },
+    "Footer": {
+        "Policies": "Policies",
+        "Privacy": "Privacy",
+        "Contact": "Contact",
+        "Copyright": "© 2025 Startups Calendar"
+    }
+}

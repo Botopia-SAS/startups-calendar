@@ -1,6 +1,11 @@
-import React from 'react'
+'use client';
+
+import React from 'react';
+import { useTranslations } from 'next-intl';
 
 const Footer = () => {
+  const t = useTranslations('Footer'); // Traducciones del namespace 'Footer'
+
   return (
     <footer className="bg-gray-50 text-black py-4 w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
@@ -11,7 +16,7 @@ const Footer = () => {
             alt="Startups Calendar Logo"
             className="h-8"
           />
-          <span className="text-sm md:text-base">© 2025 Startups Calendar</span>
+          <span className="text-sm md:text-base">{t('Copyright')}</span>
         </div>
 
         {/* Navegación */}
@@ -20,19 +25,19 @@ const Footer = () => {
             href="/politicas"
             className="text-sm md:text-base text-gray-400 hover:text-white"
           >
-            Políticas
+            {t('Policies')}
           </a>
           <a
             href="/privacidad"
             className="text-sm md:text-base text-gray-400 hover:text-white"
           >
-            Privacidad
+            {t('Privacy')}
           </a>
           <a
             href="/contacto"
             className="text-sm md:text-base text-gray-400 hover:text-white"
           >
-            Contacto
+            {t('Contact')}
           </a>
         </nav>
       </div>

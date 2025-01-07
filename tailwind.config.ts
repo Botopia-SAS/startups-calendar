@@ -14,7 +14,7 @@ export default {
       },
       letterSpacing: {
         extra: "0.10em", // Espaciado personalizado
-        wider: "0.15em",  // Más espaciado, por ejemplo
+        wider: "0.10em",  // Más espaciado, por ejemplo
       },
       fontWeight: {
         thin: '100',
