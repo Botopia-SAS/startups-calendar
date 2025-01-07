@@ -9,7 +9,7 @@ const Hero = () => {
 
   const locale = useLocale(); // Idioma actual
   return (
-    <div className="bg-gray-50 font-extralight">
+    <div className="bg-gray-50 font-normal">
       {/* Primera Sección: Logo */}
       <section className="bg-white text-center py-10 md:py-22 lg:py-30">
         <div className="max-w-6xl mx-auto px-4">
@@ -25,8 +25,8 @@ const Hero = () => {
 
       {/* Segunda Sección: Subtítulo y Botones */}
       <section className="bg-gray-50 text-center py-14 md:py-24 lg:py-20">
-        <div className="max-w-6xl mx-auto px-4">
-          <h2 className="tracking-extra text-lg md:text-xl lg:leading-tight lg:text-5xl font-thin text-gray-700 mb-10 lg:mb-8">
+        <div className="max-w-6xl mx-auto px-8">
+          <h2 className="tracking-extra text-lg md:text-xl lg:leading-none lg:text-5xl font-thin text-gray-700 mb-10 lg:mb-8">
             {t('Title')} <br />
             <span className="font-semibold text-gray-800 tracking-normal">
               {t('Subtitle')}
