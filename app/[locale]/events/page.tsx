@@ -1,7 +1,13 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
+import { useRouter, usePathname } from 'next/navigation';
 
 const Page = () => {
+
+  const t = useTranslations('Events'); // Traducciones del namespace 'Events'
+  const router = useRouter();
+
   interface Event {
     'Nombre del Evento': string;
     'Ubicación': string;
@@ -21,6 +27,11 @@ const Page = () => {
   const [locationFilter, setLocationFilter] = useState('');
   const [monthFilter, setMonthFilter] = useState('');
   const [priceFilter, setPriceFilter] = useState('');
+
+  // Estado del idioma actual
+  const pathname = usePathname();
+  const locale = pathname ? pathname.split('/')[1] || 'es' : 'es';
+  const [currentLanguage, setCurrentLanguage] = useState(locale);
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -88,14 +99,24 @@ const Page = () => {
     setFilteredEvents(events); // Reiniciar la lista de eventos filtrados
   };
 
+  // Cambiar idioma
+  const changeLanguage = (lang: string) => {
+    if (lang !== currentLanguage) {
+      setCurrentLanguage(lang);
+      if (pathname) {
+        router.push(`/${lang}${pathname.replace(/^\/[a-z]{2}/, '')}`);
+      }
+    }
+  };
+
   if (loading) {
-    return <p className="text-center text-gray-500">Cargando eventos...</p>;
+    return <p className="text-center text-gray-500">{t('Loading')}</p>;
   }
 
   return (
     <div className="bg-gray-50 min-h-screen py-10">
       <div className="max-w-6xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-6 text-black">Calendario de Eventos</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-black">{t('Title')}</h1>
 
         {/* Filtros */}
         <div className="bg-white shadow-md rounded-lg p-4 mb-6">
@@ -103,7 +124,7 @@ const Page = () => {
             {/* Buscar por nombre */}
             <input
               type="text"
-              placeholder="Buscar por nombre"
+              placeholder={t('Filters.Search')}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -112,7 +133,7 @@ const Page = () => {
             {/* Filtrar por ubicación */}
             <input
               type="text"
-              placeholder="Filtrar por lugar"
+              placeholder={t('Filters.Location')}
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
               className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -124,19 +145,19 @@ const Page = () => {
               onChange={(e) => setMonthFilter(e.target.value)}
               className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white"
             >
-              <option value="">Filtrar por mes</option>
-              <option value="1">Enero</option>
-              <option value="2">Febrero</option>
-              <option value="3">Marzo</option>
-              <option value="4">Abril</option>
-              <option value="5">Mayo</option>
-              <option value="6">Junio</option>
-              <option value="7">Julio</option>
-              <option value="8">Agosto</option>
-              <option value="9">Septiembre</option>
-              <option value="10">Octubre</option>
-              <option value="11">Noviembre</option>
-              <option value="12">Diciembre</option>
+              <option value="">{t('Filters.Month')}</option>
+              <option value="1">{t('Months.January')}</option>
+              <option value="2">{t('Months.February')}</option>
+              <option value="3">{t('Months.March')}</option>
+              <option value="4">{t('Months.April')}</option>
+              <option value="5">{t('Months.May')}</option>
+              <option value="6">{t('Months.June')}</option>
+              <option value="7">{t('Months.July')}</option>
+              <option value="8">{t('Months.August')}</option>
+              <option value="9">{t('Months.September')}</option>
+              <option value="10">{t('Months.October')}</option>
+              <option value="11">{t('Months.November')}</option>
+              <option value="12">{t('Months.December')}</option>
             </select>
 
             {/* Filtrar por precio */}
@@ -145,18 +166,18 @@ const Page = () => {
               onChange={(e) => setPriceFilter(e.target.value)}
               className="border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 bg-white"
             >
-              <option value="">Filtrar por precio</option>
-              <option value="Gratis">Gratis</option>
-              <option value="Pagado">Pagado</option>
+              <option value="">{t('Filters.Price')}</option>
+              <option value={t('Filters.Free')}>{t('Filters.Free')}</option>
+              <option value={t('Filters.Paid')}>{t('Filters.Paid')}</option>
             </select>
 
 
             {/* Botón para quitar filtros */}
             <button
               onClick={clearFilters}
-              className="bg-red-500 text-white rounded px-4 py-2 hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500"
+              className=" bg-orange-500 border-l-orange-500 text-white rounded-full px-4 py-2 hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-red-500"
             >
-              Quitar filtros
+              {t('Filters.Clear')}
             </button>
           </div>
         </div>
@@ -171,11 +192,11 @@ const Page = () => {
               <table className="w-full border-collapse bg-white shadow-md rounded-lg">
                 <thead>
                   <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left">Evento</th>
-                    <th className="py-3 px-6 text-left">Lugar</th>
-                    <th className="py-3 px-6 text-center">Fecha</th>
-                    <th className="py-3 px-6 text-center">Precio (USD)</th>
-                    <th className="py-3 px-6 text-center">Acciones</th>
+                    <th className="py-3 px-6 text-left">{t('Table.Event')}</th>
+                    <th className="py-3 px-6 text-left">{t('Table.Location')}</th>
+                    <th className="py-3 px-6 text-center">{t('Table.Date')}</th>
+                    <th className="py-3 px-6 text-center">{t('Table.Price')}</th>
+                    <th className="py-3 px-6 text-center">{t('Table.Actions')}</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
@@ -227,14 +248,14 @@ const Page = () => {
                   </div>
                   <div className="text-sm text-gray-600">
                     <p>
-                      <strong>Lugar:</strong> {event['Ubicación']}
+                      <strong>{t('Table.Location')}:</strong> {event['Ubicación']}
                     </p>
                     <p>
-                      <strong>Fecha:</strong> {event['Fecha']}
+                      <strong>{t('Table.Date')}:</strong> {event['Fecha']}
                     </p>
                     <p>
-                      <strong>Precio:</strong>{' '}
-                      {event['Precio'] === 'Gratis' ? 'Gratis' : `$${event['Precio']}`}
+                      <strong>{t('Table.Price')}:</strong>{' '}
+                      {event['Precio'] === 'Gratis' ? t('Filters.Free') : `$${event['Precio']}`}
                     </p>
                   </div>
                   <div className="mt-4">
@@ -244,7 +265,7 @@ const Page = () => {
                       rel="noopener noreferrer"
                       className="text-blue-500 hover:underline"
                     >
-                      Sitio del evento
+                      {t('Table.ViewSite')}
                     </a>
                   </div>
                 </div>

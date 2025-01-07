@@ -17,5 +17,45 @@
         "Privacy": "Privacidad",
         "Contact": "Contacto",
         "Copyright": "© 2025 Startups Calendar"
+    },
+    "Events": {
+        "Title": "Calendario de Eventos",
+        "Loading": "Cargando eventos...",
+        "NoEvents": "No se encontraron eventos",
+        "Filters": {
+            "Search": "Buscar por nombre",
+            "Location": "Filtrar por lugar",
+            "Month": "Filtrar por mes",
+            "Price": "Filtrar por precio",
+            "Free": "Gratis",
+            "Paid": "Pagado",
+            "Clear": "Quitar filtros"
+        },
+        "Months": {
+            "January": "Enero",
+            "February": "Febrero",
+            "March": "Marzo",
+            "April": "Abril",
+            "May": "Mayo",
+            "June": "Junio",
+            "July": "Julio",
+            "August": "Agosto",
+            "September": "Septiembre",
+            "October": "Octubre",
+            "November": "Noviembre",
+            "December": "Diciembre"
+        },
+        "Language": {
+            "English": "Inglés",
+            "Spanish": "Español"
+        },
+        "Table": {
+            "Event": "Evento",
+            "Location": "Lugar",
+            "Date": "Fecha",
+            "Price": "Precio (USD)",
+            "Actions": "Acciones",
+            "ViewSite": "Sitio del evento"
+        }
     }
 }

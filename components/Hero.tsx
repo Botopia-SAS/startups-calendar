@@ -2,13 +2,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { useTranslations,useLocale } from 'next-intl';
+import '../app/[locale]/globals.css';
 
 const Hero = () => {
   const t = useTranslations('Hero'); // Obtiene traducciones del namespace 'Hero'
 
   const locale = useLocale(); // Idioma actual
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50 font-extralight">
       {/* Primera Sección: Logo */}
       <section className="bg-white text-center py-10 md:py-22 lg:py-30">
         <div className="max-w-6xl mx-auto px-4">
@@ -35,7 +36,7 @@ const Hero = () => {
             </span>
           </h2>
 
-          <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 lg:gap-8 lg:mb-2 lg:mt-10 py-4">
+          <div className="flex flex-col sm:flex-row justify-center gap-4 md:gap-6 lg:gap-8 lg:mb-2 lg:mt-10 py-4 text-xl">
             <Link
               href={`/${locale}/events`}
               className="bg-green-950 hover:bg-blue-600 text-white py-2 px-6 rounded-full shadow text-center"

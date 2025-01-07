@@ -1,15 +1,19 @@
-@import "@/node_modules/slick-carousel/slick/slick.css";
-@import "@/node_modules/slick-carousel/slick/slick-theme.css";
+/* Importar estilos de slick-carousel */
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
 
+/* Tailwind CSS */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* Variables de color */
 :root {
   --background: #ffffff;
   --foreground: #171717;
 }
 
+/* Tema oscuro */
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
@@ -17,8 +21,29 @@
   }
 }
 
+/* Estilo global para body */
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Estilo para Roboto Flex */
+.font-roboto {
+  font-family: 'Roboto Flex', sans-serif;
+}
+
+/* Estilo para Montserrat */
+.montserrat-uniquifier {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400; /* Cambia según el peso requerido */
+  font-style: normal;
+}
+
+/* Estilo para Rubik Vinyl */
+.rubik-vinyl-regular {
+  font-family: "Rubik Vinyl", cursive;
+  font-weight: 400;
+  font-style: normal;
 }
