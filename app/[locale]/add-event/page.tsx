@@ -488,7 +488,7 @@ const AddEvent = () => {
                 id="price"
                 type="number"
                 name="price"
-                placeholder="Escribe el precio en dólares"
+                placeholder="Escribe el precio del evento"
                 value={isFree ? 'Gratis' : price}
                 onChange={e => setPrice(e.target.value)}
                 disabled={isFree}
