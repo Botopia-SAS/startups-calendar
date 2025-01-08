@@ -10,6 +10,10 @@ const AddEvent = () => {
   const [time, setTime] = useState('');
   const [endTime, setEndTime] = useState(''); // Hora de finalización
   const [location, setLocation] = useState('');
+  const [isDateTBD, setIsDateTBD] = useState(false); // Por definir para Fecha
+  const [isTimeTBD, setIsTimeTBD] = useState(false); // Por definir para Hora
+  const [isEndTimeTBD, setIsEndTimeTBD] = useState(false); // Por definir para Hora de Finalización
+  const [isLocationTBD, setIsLocationTBD] = useState(false); // Por definir para Ubicación
   const [logo, setLogo] = useState('https://example.com/default-logo.png');
   const [link, setLink] = useState('');
   const [companyName, setCompanyName] = useState('');
@@ -27,6 +31,8 @@ const AddEvent = () => {
   const [isLoadingg, setIsLoading] = useState(false);
   const [price, setPrice] = useState('');
   const [isFree, setIsFree] = useState(false);
+  const [currency, setCurrency] = useState('USD'); // Moneda seleccionada
+  const [isInvitationOnly, setIsInvitationOnly] = useState(false); // Nuevo estado
 
 
   const { submitEvent, isLoading, message } = useSubmitEvent();
@@ -62,17 +68,27 @@ const AddEvent = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setIsLoading(true); // Indica que el formulario está siendo enviado
+    setIsLoading(true);
+
+    const finalForm = {
+      name,
+      description,
+      date: isDateTBD ? 'Por definir' : date,
+      time: isTimeTBD ? 'Por definir' : time,
+      endTime: isEndTimeTBD ? 'Por definir' : endTime,
+      location: isLocationTBD ? 'Por definir' : location,
+      link: isInvitationOnly ? `${link || '(Solo con invitación)'}` : link,
+    };
 
     const form = {
       name,
       description,
-      date,
-      time,
-      endTime, // Hora de finalización
-      location,
+      date: finalForm.date,
+      time: finalForm.time,
+      endTime: finalForm.endTime,
+      location: finalForm.location,
       logo: logo || 'https://example.com/default-logo.png',
-      link,
+      link: finalForm.link,
       companyName,
       companyEmail,
       companyId,
@@ -82,7 +98,7 @@ const AddEvent = () => {
       representativePhone: `${phoneCode.replace('+', '')} ${representativePhone}`, // Elimina el símbolo '+' del código // Código del celular + teléfono
       representativeLinkedIn, // Incluido en los datos enviados
       representativeId,
-      price: isFree ? 'Gratis' : price,
+      price: isFree ? 'Gratis' : `${price} ${currency}`,
       status: 'Pendiente', // Estado predeterminado
     }
 
@@ -111,6 +127,7 @@ const AddEvent = () => {
     setLocation('');
     setLogo('https://example.com/default-logo.png');
     setLink('');
+    setIsInvitationOnly(false); // Limpia el checkbox
     setPrice('');
     setCompanyName('');
     setCompanyEmail('');
@@ -314,62 +331,100 @@ const AddEvent = () => {
             />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="date">
-              Fecha
-            </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="date"
-              type="date"
-              name="date"
-              value={date}
-              onChange={e => setDate(e.target.value)}
-              required
-            />
+          {/* Fecha */}
+          <div className="mb-4 flex items-center justify-between gap-4">
+            <div className="flex-grow">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Fecha</label>
+              <input
+                type="date"
+                className={`shadow border rounded w-full py-2 px-3 ${isDateTBD ? 'bg-gray-200 cursor-not-allowed' : ''
+                  }`}
+                value={date}
+                onChange={(e) => setDate(e.target.value)}
+                disabled={isDateTBD}
+                required={!isDateTBD}
+              />
+            </div>
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                className="mr-2"
+                checked={isDateTBD}
+                onChange={(e) => setIsDateTBD(e.target.checked)}
+              />
+              <label className="text-sm text-gray-700">Por definir</label>
+            </div>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="time">
-              Hora
+
+          {/* Hora */}
+          <div className="mb-4 flex items-center gap-4">
+            <div className="flex-grow">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Hora</label>
+              <input
+                type="time"
+                className="shadow border rounded w-full py-2 px-3"
+                value={time}
+                onChange={(e) => setTime(e.target.value)}
+                disabled={isTimeTBD}
+                required={!isTimeTBD}
+              />
+            </div>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={isTimeTBD}
+                onChange={(e) => setIsTimeTBD(e.target.checked)}
+              />
+              Por definir
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="time"
-              type="time"
-              name="time"
-              value={time}
-              onChange={e => setTime(e.target.value)}
-              required
-            />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Hora de Finalización</label>
-            <input
-              type="time"
-              placeholder="Hora de finalización"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              value={endTime}
-              onChange={(e) => setEndTime(e.target.value)}
-              required
-            />
+          {/* Hora de Finalización */}
+          <div className="mb-4 flex items-center gap-4">
+            <div className="flex-grow">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Hora de Finalización</label>
+              <input
+                type="time"
+                className="shadow border rounded w-full py-2 px-3"
+                value={endTime}
+                onChange={(e) => setEndTime(e.target.value)}
+                disabled={isEndTimeTBD}
+                required={!isEndTimeTBD}
+              />
+            </div>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={isEndTimeTBD}
+                onChange={(e) => setIsEndTimeTBD(e.target.checked)}
+              />
+              Por definir
+            </label>
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="location">
-              Ubicación
+          {/* Ubicación */}
+          <div className="mb-4 flex items-center gap-4">
+            <div className="flex-grow">
+              <label className="block text-gray-700 text-sm font-bold mb-2">Ubicación</label>
+              <input
+                type="text"
+                className="shadow border rounded w-full py-2 px-3"
+                placeholder="Escribe la ubicación o el enlace si es virtual"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                disabled={isLocationTBD}
+                required={!isLocationTBD}
+              />
+            </div>
+            <label className="flex items-center gap-2 text-sm">
+              <input
+                type="checkbox"
+                checked={isLocationTBD}
+                onChange={(e) => setIsLocationTBD(e.target.checked)}
+              />
+              Por definir
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="location"
-              type="text"
-              name="location"
-              placeholder="Escribe la ubicación o el enlace si es virtual"
-              value={location}
-              onChange={e => setLocation(e.target.value)}
-              required
-            />
           </div>
 
           <div className="mb-4">
@@ -399,16 +454,27 @@ const AddEvent = () => {
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="link">
               Enlace del Evento
             </label>
-            <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="link"
-              type="url"
-              name="link"
-              placeholder="Enlace oficial del evento"
-              value={link}
-              onChange={e => setLink(e.target.value)}
-              required
-            />
+            <div className="flex items-center gap-4">
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="link"
+                type="url"
+                name="link"
+                placeholder="Enlace oficial del evento"
+                value={link}
+                onChange={e => setLink(e.target.value)}
+                disabled={isInvitationOnly}
+                required={!isInvitationOnly}
+              />
+              <label className="flex items-center gap-2 text-sm text-gray-700">
+                <input
+                  type="checkbox"
+                  checked={isInvitationOnly}
+                  onChange={(e) => setIsInvitationOnly(e.target.checked)}
+                />
+                Invitación
+              </label>
+            </div>
           </div>
 
           {/* Precio del Evento */}
@@ -443,6 +509,28 @@ const AddEvent = () => {
             </div>
           </div>
 
+          {/* Selección de Moneda */}
+          {!isFree && (
+            <div className="mb-4">
+              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="currency">
+                Moneda
+              </label>
+              <select
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="currency"
+                value={currency}
+                onChange={(e) => setCurrency(e.target.value)}
+              >
+                <option value="USD">USD (Dólar estadounidense)</option>
+                <option value="EUR">EUR (Euro)</option>
+                <option value="COP">COP (Peso colombiano)</option>
+                <option value="MXN">MXN (Peso mexicano)</option>
+                <option value="BRL">BRL (Real brasileño)</option>
+                <option value="ARS">ARS (Peso argentino)</option>
+              </select>
+            </div>
+          )}
+
           {/* Botón Enviar */}
           <div className="flex items-center justify-center">
             <button
@@ -454,10 +542,9 @@ const AddEvent = () => {
               {isUploading
                 ? 'Subiendo Imagen...'
                 : isLoading
-                  ? 'Enviando...'
+                  ? 'ENVIANDO . . .'
                   : 'Enviar'}
             </button>
-
           </div>
           {message && <p className="mt-4 text-center text-gray-700">{message}</p>}
         </form>
