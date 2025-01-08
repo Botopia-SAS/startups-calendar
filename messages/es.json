@@ -53,7 +53,7 @@
             "Event": "Evento",
             "Location": "Lugar",
             "Date": "Fecha",
-            "Price": "Precio (USD)",
+            "Price": "Precio",
             "Actions": "Acciones",
             "ViewSite": "Sitio del evento"
         }

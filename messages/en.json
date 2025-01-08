@@ -53,7 +53,7 @@
             "Event": "Event",
             "Location": "Location",
             "Date": "Date",
-            "Price": "Price (USD)",
+            "Price": "Price",
             "Actions": "Actions",
             "ViewSite": "View Event Site"
         }
