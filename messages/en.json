@@ -1,6 +1,6 @@
 {
     "Header": {
-        "Aboutus": "About us",
+        "Aboutus": "About",
         "Blog": "Blog",
         "Partners": "Partners"
     },
@@ -55,7 +55,34 @@
             "Date": "Date",
             "Price": "Price",
             "Actions": "Actions",
-            "ViewSite": "View Event Site"
+            "ViewSite": "Event Site"
+        }
+    },
+    "Newsletter": {
+        "Title": "Subscribe to our Newsletter!",
+        "Placeholders": {
+            "FullName": "Your full name",
+            "Email": "Email",
+            "Company": "Company",
+            "City": "City",
+            "Country": "Country",
+            "Linkedin": "LinkedIn profile (optional)"
+        },
+        "Buttons": {
+            "Subscribe": "Subscribe",
+            "Submitting": "Submitting..."
+        },
+        "Messages": {
+            "Success": "Thank you for subscribing!",
+            "Error": "Something went wrong. Please try again.",
+            "GenericError": "Connection error. Please try again later."
+        },
+        "Validation": {
+            "LinkedinInvalid": "Please enter a valid LinkedIn profile."
+        },
+        "Footer": {
+            "Text": "*By submitting your information to Startups Calendar you agree to our",
+            "Terms": "Terms and Conditions"
         }
     }
 }

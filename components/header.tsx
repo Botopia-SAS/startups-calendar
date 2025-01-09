@@ -26,7 +26,7 @@ const Header = () => {
   };
 
   return (
-    <header className="bg-white shadow w-full z-20">
+    <header className="bg-white shadow w-full z-20 fixed top-0 ">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-4">
         <div className="flex justify-between items-center py-4 space-x-6">
           {/* Logo */}
@@ -34,7 +34,7 @@ const Header = () => {
             <img
               src="/logo.png"
               alt="Startups Calendar Logo"
-              className="h-8 md:h-12"
+              className="h-9 md:h-14"
             />
           </a>
 

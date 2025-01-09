@@ -54,8 +54,7 @@
             "Location": "Lugar",
             "Date": "Fecha",
             "Price": "Precio",
-            "Actions": "Acciones",
-            "ViewSite": "Sitio del evento"
+            "ViewSite": "Enlace de ingreso"
         }
     },
     "Newsletter": {

@@ -64,7 +64,7 @@ const NewsletterForm = () => {
   };
 
   return (
-    <section className="bg-gray-50 min-h-[calc(80vh-80px)] flex items-center justify-center">
+    <section className="bg-gray-50 min-h-[calc(80vh-80px)] flex items-center justify-center mt-20">
       <div className="w-full px-4">
         <h2 className="text-2xl font-semibold text-center text-orange-500 mb-8">
           {t('Title')}

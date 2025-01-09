@@ -20,6 +20,20 @@
     --foreground: #ededed;
   }
 }
+@media (max-width: 768px) {
+  .carousel img {
+    object-fit: contain; /* Ajusta la imagen sin recortar */
+    height: 50%; /* Reducir altura */
+    width: auto; /* Mantener proporción */
+  }
+}
+
+
+@keyframes fadeInOut {
+  0%, 20% { opacity: 1; }
+  25%, 100% { opacity: 0; }
+}
+
 
 /* Estilo global para body */
 body {
