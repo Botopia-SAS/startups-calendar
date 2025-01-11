@@ -1,63 +1,63 @@
 {
-    "Header": {
-        "Aboutus": "Nosotros",
-        "Blog": "Blog",
-        "Partners": "Aliados"
+  "Header": {
+    "Aboutus": "Nosotros",
+    "Blog": "Blog",
+    "Partners": "Aliados"
+  },
+  "Hero": {
+    "Title": "Descubre los próximos eventos de",
+    "Subtitle": "Startups y Tecnología",
+    "Year": "2025",
+    "ViewCalendar": "Ver Calendario de Eventos",
+    "AddEvent": "Agrega tu Evento",
+    "Subscribe": "Suscríbete"
+  },
+  "Footer": {
+    "Policies": "Políticas",
+    "Privacy": "Privacidad",
+    "Contact": "Contacto",
+    "Copyright": "© 2025 Startups Calendar"
+  },
+  "Events": {
+    "Title": "Calendario de Eventos",
+    "Loading": "Cargando eventos...",
+    "NoEvents": "No se encontraron eventos",
+    "Filters": {
+      "Search": "Buscar por nombre",
+      "Location": "Filtrar por lugar",
+      "Month": "Filtrar por mes",
+      "Price": "Filtrar por precio",
+      "Free": "Gratis",
+      "Paid": "Pagado",
+      "Clear": "Quitar filtros"
     },
-    "Hero": {
-        "Title": "Descubre los próximos eventos de",
-        "Subtitle": "Startups y Tecnología",
-        "Year": "2025",
-        "ViewCalendar": "Ver Calendario de Eventos",
-        "AddEvent": "Agrega tu Evento",
-        "Subscribe": "Suscríbete"
+    "Months": {
+      "January": "Enero",
+      "February": "Febrero",
+      "March": "Marzo",
+      "April": "Abril",
+      "May": "Mayo",
+      "June": "Junio",
+      "July": "Julio",
+      "August": "Agosto",
+      "September": "Septiembre",
+      "October": "Octubre",
+      "November": "Noviembre",
+      "December": "Diciembre"
     },
-    "Footer": {
-        "Policies": "Políticas",
-        "Privacy": "Privacidad",
-        "Contact": "Contacto",
-        "Copyright": "© 2025 Startups Calendar"
+    "Language": {
+      "English": "Inglés",
+      "Spanish": "Español"
     },
-    "Events": {
-        "Title": "Calendario de Eventos",
-        "Loading": "Cargando eventos...",
-        "NoEvents": "No se encontraron eventos",
-        "Filters": {
-            "Search": "Buscar por nombre",
-            "Location": "Filtrar por lugar",
-            "Month": "Filtrar por mes",
-            "Price": "Filtrar por precio",
-            "Free": "Gratis",
-            "Paid": "Pagado",
-            "Clear": "Quitar filtros"
-        },
-        "Months": {
-            "January": "Enero",
-            "February": "Febrero",
-            "March": "Marzo",
-            "April": "Abril",
-            "May": "Mayo",
-            "June": "Junio",
-            "July": "Julio",
-            "August": "Agosto",
-            "September": "Septiembre",
-            "October": "Octubre",
-            "November": "Noviembre",
-            "December": "Diciembre"
-        },
-        "Language": {
-            "English": "Inglés",
-            "Spanish": "Español"
-        },
-        "Table": {
-            "Event": "Evento",
-            "Location": "Lugar",
-            "Date": "Fecha",
-            "Price": "Precio",
-            "ViewSite": "Enlace de ingreso"
-        }
-    },
-    "Newsletter": {
+    "Table": {
+      "Event": "Evento",
+      "Location": "Lugar",
+      "Date": "Fecha",
+      "Price": "Precio",
+      "ViewSite": "Enlace de ingreso"
+    }
+  },
+  "Newsletter": {
     "Title": "¡Suscríbete a nuestro Newsletter!",
     "Placeholders": {
       "FullName": "Tu nombre completo",
@@ -82,6 +82,14 @@
     "Footer": {
       "Text": "*Al enviar tus datos a Startups Calendar aceptas nuestros",
       "Terms": "Términos y Condiciones"
+    }
+  },
+  "Credits": {
+    "Title": "¡Gracias por confiar en",
+    "Description": "Este sitio fue desarrollado con tecnología personalizada por nuestro equipo en Botopia, conectando empresas con soluciones innovadoras. Creamos experiencias digitales únicas que impulsan el crecimiento de negocios como el tuyo.",
+    "CTA": {
+      "More": "Conoce más sobre Botopia",
+      "Contact": "Contáctanos para tu proyecto"
     }
   }
 }

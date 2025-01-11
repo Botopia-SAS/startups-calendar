@@ -84,5 +84,13 @@
             "Text": "*By submitting your information to Startups Calendar you agree to our",
             "Terms": "Terms and Conditions"
         }
+    },
+    "Credits": {
+        "Title": "Thank you for trusting",
+        "Description": "This site was developed with customized technology by our team at Botopia, connecting companies with innovative solutions. We create unique digital experiences that drive business growth like yours.",
+        "CTA": {
+            "More": "Learn more about Botopia",
+            "Contact": "Contact us for your project"
+        }
     }
 }
