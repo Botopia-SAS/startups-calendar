@@ -5,6 +5,7 @@ type SheetForm = {
     name: String
     description: String
     date: String
+    endDate: String
     time: String
     endTime: string; // Hora de finalización
     location: String
@@ -51,13 +52,14 @@ export default async function handler(
 
         const response = await sheets.spreadsheets.values.append({
             spreadsheetId: process.env.GOOGLE_SHEET_ID,
-            range: 'Eventos!A1:O1', // Incluye las nuevas columnas
+            range: 'Eventos!A1:T1', // Incluye las nuevas columnas
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: [[
                     body.name || '',
                     body.description || '',
                     body.date || '',
+                    body.endDate || '',
                     body.time || '',
                     body.endTime || '', // Hora de finalización
                     body.location || '',

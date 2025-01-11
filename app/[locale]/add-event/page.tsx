@@ -7,10 +7,12 @@ const AddEvent = () => {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [date, setDate] = useState('');
+  const [endDate, setEndDate] = useState('');
   const [time, setTime] = useState('');
   const [endTime, setEndTime] = useState(''); // Hora de finalización
   const [location, setLocation] = useState('');
   const [isDateTBD, setIsDateTBD] = useState(false); // Por definir para Fecha
+  const [isEndDateTBD, setEndIsDateTBD] = useState(false); // Por definir para Fecha
   const [isTimeTBD, setIsTimeTBD] = useState(false); // Por definir para Hora
   const [isEndTimeTBD, setIsEndTimeTBD] = useState(false); // Por definir para Hora de Finalización
   const [isLocationTBD, setIsLocationTBD] = useState(false); // Por definir para Ubicación
@@ -30,6 +32,7 @@ const AddEvent = () => {
   const [messageimg, setMessage] = useState('');
   const [isLoadingg, setIsLoading] = useState(false);
   const [price, setPrice] = useState('');
+  const [isPriceTBD, setIsPriceTBD] = useState(false);
   const [isFree, setIsFree] = useState(false);
   const [currency, setCurrency] = useState('USD'); // Moneda seleccionada
   const [isInvitationOnly, setIsInvitationOnly] = useState(false); // Nuevo estado
@@ -74,16 +77,20 @@ const AddEvent = () => {
       name,
       description,
       date: isDateTBD ? 'Por definir' : date,
+      endDate: isEndDateTBD ? 'Por definir' : endDate,
       time: isTimeTBD ? 'Por definir' : time,
       endTime: isEndTimeTBD ? 'Por definir' : endTime,
       location: isLocationTBD ? 'Por definir' : location,
       link: isInvitationOnly ? `${link || '(Solo con invitación)'}` : link,
+      price: isFree ? 'Gratis' : isPriceTBD ? 'Por definir' : `${price} ${currency}`,
+
     };
 
     const form = {
       name,
       description,
       date: finalForm.date,
+      endDate: finalForm.endDate,
       time: finalForm.time,
       endTime: finalForm.endTime,
       location: finalForm.location,
@@ -98,7 +105,7 @@ const AddEvent = () => {
       representativePhone: `${phoneCode.replace('+', '')} ${representativePhone}`, // Elimina el símbolo '+' del código // Código del celular + teléfono
       representativeLinkedIn, // Incluido en los datos enviados
       representativeId,
-      price: isFree ? 'Gratis' : `${price} ${currency}`,
+      price: finalForm.price,
       status: 'Pendiente', // Estado predeterminado
     }
 
@@ -122,6 +129,7 @@ const AddEvent = () => {
     setName('');
     setDescription('');
     setDate('');
+    setEndDate('');
     setTime('');
     setEndTime(''); // Limpiar hora de finalización
     setLocation('');
@@ -144,12 +152,12 @@ const AddEvent = () => {
   }
 
   return (
-    <section className="bg-gray-50 min-h-screen py-10">
+    <section className="bg-gray-50 min-h-screen py-24">
       <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold text-center mb-6 text-black">Agrega tu Evento</h1>
+        <h1 className="text-3xl font-bold text-center mb-6 text-black">Formulario</h1>
         <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
           {/* Información de la Empresa */}
-          <h2 className="text-xl font-bold mb-4 text-black">Información de la Empresa</h2>
+          <h2 className="text-xl font-bold mb-4 text-black">Información general</h2>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyName">
               Nombre de la Empresa
@@ -167,7 +175,7 @@ const AddEvent = () => {
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyEmail">
-              Email de la Empresa
+              Correo de la Empresa
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -181,25 +189,24 @@ const AddEvent = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyId">
-              NIT o Identificación Fiscal
+            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="companyWebSide">
+              Sitio web de la empresa
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="companyId"
               type="text"
               name="companyId"
-              placeholder="Número de identificación de la empresa"
+              placeholder="Sitio web de la empresa"
               value={companyId}
               onChange={e => setCompanyId(e.target.value)}
             />
           </div>
 
           {/* Información del Representante */}
-          <h2 className="text-xl font-bold mb-4 text-black">Información del Representante</h2>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="representativeName">
-              Nombre del Representante
+              Nombre del representante
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -213,7 +220,7 @@ const AddEvent = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">LinkedIn del Representante</label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">LinkedIn del representante</label>
             <input
               type="url"
               placeholder="Enlace de LinkedIn"
@@ -274,7 +281,7 @@ const AddEvent = () => {
 
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="representativeId">
-              Cédula o Identificación Oficial
+              Correo electrónico del representante
             </label>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -288,7 +295,7 @@ const AddEvent = () => {
           </div>
 
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">Cargo del Representante</label>
+            <label className="block text-gray-700 text-sm font-bold mb-2">Cargo</label>
             <input
               type="text"
               placeholder="Cargo del representante"
@@ -332,105 +339,178 @@ const AddEvent = () => {
           </div>
 
           {/* Fecha */}
-          <div className="mb-4 flex items-center justify-between gap-4">
-            <div className="flex-grow">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Fecha</label>
-              <input
-                type="date"
-                className={`shadow border rounded w-full py-2 px-3 ${isDateTBD ? 'bg-gray-200 cursor-not-allowed' : ''
-                  }`}
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                disabled={isDateTBD}
-                required={!isDateTBD}
-              />
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                className="mr-2"
-                checked={isDateTBD}
-                onChange={(e) => setIsDateTBD(e.target.checked)}
-              />
-              <label className="text-sm text-gray-700">Por definir</label>
+          <div className="mb-6">
+            <h1 className="text-lg font-semibold mb-2">Fecha de inicio</h1>
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Checkbox: Por definir */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
+                Por definir
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isDateTBD}
+                    onChange={(e) => setIsDateTBD(e.target.checked)}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Input: Fecha */}
+              <div className="flex-grow">
+                <label className="block text-gray-700 text-sm font-medium mb-2">Fecha</label>
+                <input
+                  type="date"
+                  className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isDateTBD ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                  value={date}
+                  onChange={(e) => setDate(e.target.value)}
+                  disabled={isDateTBD}
+                  required={!isDateTBD}
+                />
+              </div>
             </div>
           </div>
+
+          {/* Fecha */}
+          <div className="mb-10">
+            <h1 className="text-lg font-semibold mb-2">Fecha de finalización</h1>
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Checkbox: Por definir */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
+                Por definir
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isEndDateTBD}
+                    onChange={(e) => setEndIsDateTBD(e.target.checked)}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Input: Fecha */}
+              <div className="flex-grow">
+                <label className="block text-gray-700 text-sm font-medium mb-2">Fecha</label>
+                <input
+                  type="date"
+                  className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEndDateTBD ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                  value={endDate}
+                  onChange={(e) => setEndDate(e.target.value)}
+                  disabled={isEndDateTBD}
+                  required={!isEndDateTBD}
+                />
+              </div>
+            </div>
+          </div>
+
 
 
           {/* Hora */}
-          <div className="mb-4 flex items-center gap-4">
-            <div className="flex-grow">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Hora</label>
-              <input
-                type="time"
-                className="shadow border rounded w-full py-2 px-3"
-                value={time}
-                onChange={(e) => setTime(e.target.value)}
-                disabled={isTimeTBD}
-                required={!isTimeTBD}
-              />
+          <div className="mb-6">
+            <h1 className="text-lg font-semibold mb-2">Hora de inicio</h1>
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Checkbox: Por definir */}
+              <div className='block text-gray-700 text-sm font-medium mr-8'>
+                Por definir
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isTimeTBD}
+                    onChange={(e) => setIsTimeTBD(e.target.checked)}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Input: Hora */}
+              <div className="flex-grow">
+                <label className="block text-gray-700 text-sm font-medium mb-2">Hora</label>
+                <input
+                  type="time"
+                  className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isTimeTBD ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                  disabled={isTimeTBD}
+                  required={!isTimeTBD}
+                />
+              </div>
             </div>
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={isTimeTBD}
-                onChange={(e) => setIsTimeTBD(e.target.checked)}
-              />
-              Por definir
-            </label>
           </div>
+
 
           {/* Hora de Finalización */}
-          <div className="mb-4 flex items-center gap-4">
-            <div className="flex-grow">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Hora de Finalización</label>
-              <input
-                type="time"
-                className="shadow border rounded w-full py-2 px-3"
-                value={endTime}
-                onChange={(e) => setEndTime(e.target.value)}
-                disabled={isEndTimeTBD}
-                required={!isEndTimeTBD}
-              />
+          <div className="mb-10">
+            <h1 className="text-lg font-semibold mb-2">Hora de Finalización</h1>
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Checkbox: Por definir */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
+                Por definir
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isEndTimeTBD}
+                    onChange={(e) => setIsEndTimeTBD(e.target.checked)}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Input: Hora de Finalización */}
+              <div className="flex-grow">
+                <label className="block text-gray-700 text-sm font-medium mb-2">Hora</label>
+                <input
+                  type="time"
+                  className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEndTimeTBD ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                  disabled={isEndTimeTBD}
+                  required={!isEndTimeTBD}
+                />
+              </div>
             </div>
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={isEndTimeTBD}
-                onChange={(e) => setIsEndTimeTBD(e.target.checked)}
-              />
-              Por definir
-            </label>
           </div>
+
 
           {/* Ubicación */}
-          <div className="mb-4 flex items-center gap-4">
-            <div className="flex-grow">
-              <label className="block text-gray-700 text-sm font-bold mb-2">Ubicación</label>
-              <input
-                type="text"
-                className="shadow border rounded w-full py-2 px-3"
-                placeholder="Escribe la ubicación o el enlace si es virtual"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
-                disabled={isLocationTBD}
-                required={!isLocationTBD}
-              />
+          <div className="mb-6">
+            <h1 className="text-lg font-semibold mb-2">Ubicación</h1>
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Checkbox: Por definir */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
+                Por definir
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isLocationTBD}
+                    onChange={(e) => setIsLocationTBD(e.target.checked)}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Input: Ubicación */}
+              <div className="flex-grow">
+                <label className="block text-gray-700 text-sm font-medium">Ubicación</label>
+                <input
+                  type="text"
+                  className={`rounded-lg w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isLocationTBD ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                  placeholder="Escribe la ubicación o link"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  disabled={isLocationTBD}
+                  required={!isLocationTBD}
+                />
+              </div>
             </div>
-            <label className="flex items-center gap-2 text-sm">
-              <input
-                type="checkbox"
-                checked={isLocationTBD}
-                onChange={(e) => setIsLocationTBD(e.target.checked)}
-              />
-              Por definir
-            </label>
           </div>
 
+
           <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="logo">
-              Logo del Evento
-            </label>
+            <h1 className="text-lg font-semibold mb-2">Logo del Evento</h1>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="logo"
@@ -450,67 +530,106 @@ const AddEvent = () => {
             )}
           </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="link">
-              Enlace del Evento
-            </label>
-            <div className="flex items-center gap-4">
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="link"
-                type="url"
-                name="link"
-                placeholder="Enlace oficial del evento"
-                value={link}
-                onChange={e => setLink(e.target.value)}
-                disabled={isInvitationOnly}
-                required={!isInvitationOnly}
-              />
-              <label className="flex items-center gap-2 text-sm text-gray-700">
-                <input
-                  type="checkbox"
-                  checked={isInvitationOnly}
-                  onChange={(e) => setIsInvitationOnly(e.target.checked)}
-                />
+          {/* Enlace del Evento */}
+          <div className="mb-6">
+            <h1 className="text-lg font-semibold mb-2">Enlace del Evento</h1>
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Checkbox: Invitación */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
                 Invitación
-              </label>
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isInvitationOnly}
+                    onChange={(e) => setIsInvitationOnly(e.target.checked)}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Input: Enlace del Evento */}
+              <div className="flex-grow">
+                <label className="block text-gray-700 text-sm font-medium">Enlace</label>
+                <input
+                  className={`rounded-lg w-full py-2 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isInvitationOnly ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                  id="link"
+                  type="url"
+                  name="link"
+                  placeholder="Enlace oficial del evento"
+                  value={link}
+                  onChange={(e) => setLink(e.target.value)}
+                  disabled={isInvitationOnly}
+                  required={!isInvitationOnly}
+                />
+              </div>
             </div>
           </div>
+
 
           {/* Precio del Evento */}
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="price">
-              Precio del Evento
-            </label>
-            <div className="flex items-center gap-4">
-              <input
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="price"
-                type="number"
-                name="price"
-                placeholder="Escribe el precio del evento"
-                value={isFree ? 'Gratis' : price}
-                onChange={e => setPrice(e.target.value)}
-                disabled={isFree}
-                required={!isFree}
-              />
-              <label className="flex items-center gap-2 text-sm text-gray-700">
-                <input
-                  type="checkbox"
-                  checked={isFree}
-                  onChange={e => {
-                    setIsFree(e.target.checked);
-                    if (e.target.checked) setPrice('Gratis');
-                    else setPrice('');
-                  }}
-                />
+          <div className="mb-6">
+            <h1 className="text-lg font-semibold mb-2">Precio del Evento</h1>
+            <div className="flex items-center gap-4 flex-wrap">
+              {/* Checkbox: Gratis */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
                 Gratis
-              </label>
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isFree}
+                    onChange={(e) => {
+                      setIsFree(e.target.checked);
+                      if (e.target.checked) setPrice('Gratis');
+                      else setPrice('');
+                    }}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+              {/* Checkbox: Por definir */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
+                Por definir
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isPriceTBD}
+                    onChange={(e) => {
+                      setIsPriceTBD(e.target.checked);
+                      if (e.target.checked) {
+                        setPrice('Por definir');
+                        setIsFree(false); // Desmarcar "Gratis" si es Por definir
+                      } else {
+                        setPrice('');
+                      }
+                    }}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Input: Precio */}
+              <div className="flex-grow">
+                <label className="block text-gray-700 text-sm font-medium">Precio</label>
+                <input
+                  className={`rounded-lg w-full py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isFree ? 'bg-gray-100 cursor-not-allowed' : ''
+                    }`}
+                  id="price"
+                  type="number"
+                  name="price"
+                  placeholder="Escribe el precio del evento $"
+                  value={isFree ? 'Gratis' : price}
+                  onChange={(e) => setPrice(e.target.value)}
+                  disabled={isFree || isPriceTBD}
+                  required={!isFree || !isPriceTBD}
+                />
+              </div>
             </div>
           </div>
 
+
           {/* Selección de Moneda */}
-          {!isFree && (
+          {!isFree && !isPriceTBD && (
             <div className="mb-4">
               <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="currency">
                 Moneda
@@ -532,9 +651,9 @@ const AddEvent = () => {
           )}
 
           {/* Botón Enviar */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center py-4">
             <button
-              className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${(isUploading || isLoading) && 'opacity-50 cursor-not-allowed'
+              className={`w-full bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg shadow-lg shadow-gray-500 focus:outline-none focus:shadow-outline ${(isUploading || isLoading) && 'opacity-50 cursor-not-allowed'
                 }`}
               type="submit"
               disabled={isUploading || isLoading} // Deshabilita el botón durante la carga o envío

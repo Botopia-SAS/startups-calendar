@@ -22,7 +22,7 @@ export default async function handler(
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId: process.env.GOOGLE_SHEET_ID,
-      range: 'Eventos!A1:S', // Asegúrate de ajustar el rango a tus datos
+      range: 'Eventos!A1:T', // Asegúrate de ajustar el rango a tus datos
     });
 
     const rows = response.data.values;

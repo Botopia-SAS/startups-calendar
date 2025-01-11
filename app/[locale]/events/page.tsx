@@ -117,12 +117,41 @@ const Page = () => {
 
   return (
 
-    <div className="bg-gray-50 min-h-screen py-10">
+    <div className=" py-10">
       <div className="max-w-6xl mx-auto px-4">
         <h1 className="text-3xl font-bold text-center mb-6 text-black">{t('Title')}</h1>
 
+        {/* Filtro de meses */}
+        <div className="flex justify-between overflow-x-auto space-x-2 mb-6 rounded-lg p-4">
+          {[
+            { value: '1', label: t('Months.January') },
+            { value: '2', label: t('Months.February') },
+            { value: '3', label: t('Months.March') },
+            { value: '4', label: t('Months.April') },
+            { value: '5', label: t('Months.May') },
+            { value: '6', label: t('Months.June') },
+            { value: '7', label: t('Months.July') },
+            { value: '8', label: t('Months.August') },
+            { value: '9', label: t('Months.September') },
+            { value: '10', label: t('Months.October') },
+            { value: '11', label: t('Months.November') },
+            { value: '12', label: t('Months.December') },
+          ].map((month) => (
+            <button
+              key={month.value}
+              onClick={() => setMonthFilter(month.value)}
+              className={`px-4 py-2 rounded-full text-m font-medium shadow-md shadow-gray-400 ${monthFilter === month.value
+                ? 'bg-blue-500 text-white'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+                }`}
+            >
+              {month.label}
+            </button>
+          ))}
+        </div>
+
         {/* Filtros */}
-        <div className="bg-white shadow-md rounded-lg p-4 mb-6">
+        <div className="bg-transparent shadow-md rounded-lg p-4 mb-6">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {/* Buscar por nombre */}
             <input
@@ -164,35 +193,6 @@ const Page = () => {
           </div>
         </div>
 
-        {/* Filtro de meses */}
-        <div className="flex justify-between overflow-x-auto space-x-2 mb-6 bg-white shadow-md rounded-lg p-4">
-          {[
-            { value: '1', label: t('Months.January') },
-            { value: '2', label: t('Months.February') },
-            { value: '3', label: t('Months.March') },
-            { value: '4', label: t('Months.April') },
-            { value: '5', label: t('Months.May') },
-            { value: '6', label: t('Months.June') },
-            { value: '7', label: t('Months.July') },
-            { value: '8', label: t('Months.August') },
-            { value: '9', label: t('Months.September') },
-            { value: '10', label: t('Months.October') },
-            { value: '11', label: t('Months.November') },
-            { value: '12', label: t('Months.December') },
-          ].map((month) => (
-            <button
-              key={month.value}
-              onClick={() => setMonthFilter(month.value)}
-              className={`px-4 py-2 rounded-full text-sm font-medium ${monthFilter === month.value
-                  ? 'bg-blue-500 text-white'
-                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-            >
-              {month.label}
-            </button>
-          ))}
-        </div>
-
         {/* Mostrar mensaje si no hay eventos */}
         {filteredEvents.length === 0 ? (
           <p className="text-center text-gray-500">No hay eventos que coincidan con los filtros.</p>
@@ -220,22 +220,20 @@ const Page = () => {
                           className="w-auto h-32 object-fill rounded"
                         />
                       </td>
-                      <td className="py-3 px-4 text-left">{event['Nombre del Evento']}</td>
+                      <td className="py-3 px-6 text-left">
+                        <div className='animate-bounce bg-orange-500 rounded-full py-2 shadow-lg mt-4 mb-4 items-center justify-center flex'>
+                        <a
+                          href={event['Enlace']}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white hover:underline font-bold flex flex-wrap"
+                        >{event['Nombre del Evento']}
+                        </a>
+                      </div></td>
                       <td className="py-3 px-4 text-left">{event['Ubicación']}</td>
                       <td className="py-3 px-4 text-center">{event['Fecha']}</td>
                       <td className="py-3 px-4 text-center">
                         {event['Precio'] === 'Gratis' ? 'Gratis' : `$${event['Precio']}`}
-                      </td>
-                      <td className="py-3 px-6 text-center">
-                        <a
-                          href={event['Enlace'] || '#'} // Enlace por defecto si no hay URL
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-blue-400 hover:underline font-bold"
-                        >
-                          {t('Table.ViewSite')}
-                        </a>
-
                       </td>
                     </tr>
                   ))}
@@ -246,13 +244,15 @@ const Page = () => {
             {/* Vista móvil */}
             <div className="grid grid-cols-1 gap-4 md:hidden">
               {filteredEvents.map((event, index) => (
-                <div key={index} className="bg-transparent shadow-md rounded-lg p-4">
+                <div key={index} className="bg-transparent shadow-md rounded-lg p-4 flex flex-wrap">
                   <div className="flex items-center mb-4 flex-wrap justify-center">
+                    <div className='w-full h-52 justify-center items-center flex flex-wrap'>
                     <img
                       src={event['Logo']}
                       alt={event['Nombre del Evento']}
-                      className="w-auto h-30 object-cover rounded mr-4"
+                      className="w-auto h-32 object-cover rounded-lg "
                     />
+                    </div>
                     <div className='animate-bounce bottom-4 right-4 bg-orange-500 rounded-full px-3 py-2 shadow-lg mt-4 mb-4 items-center justify-center flex'>
                       <a
                         href={event['Enlace']}
