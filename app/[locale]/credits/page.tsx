@@ -9,7 +9,7 @@ const CreditosBotopia = () => {
       <div className="max-w-4xl mx-auto text-center py-12 md:py-28">
         {/* Título */}
         <h2 className="text-2xl sm:text-4xl font-bold mb-4">
-          {t("Title")} <br /><span className="text-purple-500">Botopia Technology S.A.S</span>!
+          {t("Title")} <br /><span className="text-gradient-to-r from-purple-700 to-black">Botopia Technology S.A.S</span>!
         </h2>
 
         {/* Descripción */}
@@ -31,7 +31,7 @@ const CreditosBotopia = () => {
             href="https://botopia.tech/contacto"
             target="_blank"
             rel="noopener noreferrer"
-            className=" hover:bg-purple-600 text-black py-3 px-4 sm:px-6 rounded-lg shadow-lg shadow-black transition-all duration-300 text-sm w-full text-center"
+            className=" hover:bg-purple-600 text-black py-3 px-4 sm:px-6 rounded-lg shadow-lg shadow-gray-500 transition-all duration-300 text-sm w-full text-center"
           >
             {t("CTA.Contact")}
           </a>
