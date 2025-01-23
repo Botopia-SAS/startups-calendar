@@ -37,6 +37,8 @@ const Page = () => {
     const fetchEvents = async () => {
       try {
         const response = await fetch('/api/get-events');
+
+        console.log(response);
         const data = await response.json();
         console.log(data)
         if (data.success) {
@@ -118,11 +120,11 @@ const Page = () => {
   return (
 
     <div className=" py-10">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="px-4 md:px-1   md:max-w-7xl mx-auto">
         <h1 className="text-3xl font-bold text-center mb-6 text-black">{t('Title')}</h1>
 
         {/* Filtro de meses */}
-        <div className="flex justify-between overflow-x-auto space-x-2 mb-6 rounded-lg p-4">
+        <div className="text-xl flex justify-between overflow-x-auto space-x-2 mb-6 rounded-lg p-4">
           {[
             { value: '1', label: t('Months.January') },
             { value: '2', label: t('Months.February') },
@@ -203,37 +205,49 @@ const Page = () => {
               <table className="w-full border-collapse bg-white shadow-md rounded-lg">
                 <thead>
                   <tr className="bg-transparent text-gray-600 uppercase text-sm leading-normal">
-                    <th></th>
-                    <th className="py-3 px-6 text-left">{t('Table.Event')}</th>
-                    <th className="py-3 px-6 text-left">{t('Table.Location')}</th>
-                    <th className="py-3 px-6 text-center">{t('Table.Date')}</th>
-                    <th className="py-3 px-6 text-center">{t('Table.Price')}</th>
+                    <th className="py-3 px-6 text-left w-3/12"></th>
+                    <th className="py-3 px-6 text-left w-3/12">{t('Table.Event')}</th>
+                    <th className="py-3 px-6 text-left w-2/12">{t('Table.Location')}</th>
+                    <th className="py-3 px-6 text-center w-2/12">{t('Table.Date')}</th>
+                    <th className="py-3 px-6 text-center">{t('Table.ViewSite')}</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
                   {filteredEvents.map((event, index) => (
+
                     <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
-                      <td className="py-3 px-3 text-left flex items-center justify-center">
+                      <td className="py-3 px-3 text-left flex items-center justify-center relative">
                         <img
                           src={event['Logo']}
                           alt={event['Nombre del Evento']}
                           className="w-auto h-32 object-fill rounded"
                         />
                       </td>
-                      <td className="py-3 px-6 text-left">
-                        <div className='animate-bounce bg-orange-500 rounded-full py-2 shadow-lg mt-4 mb-4 items-center justify-center flex'>
-                        <a
-                          href={event['Enlace']}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-white hover:underline font-bold flex flex-wrap"
-                        >{event['Nombre del Evento']}
-                        </a>
-                      </div></td>
+                      <td className="py-3 px-6 text-left relative">
+                        <div className='bg-transparent rounded-full py-2 px-2 mt-4 mb-4 items-center justify-start flex'>
+                          <a
+                            href={event['Enlace']}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-black hover:underline font-bold flex flex-wrap"
+                          >{event['Nombre del Evento']}
+                          </a>
+                          {event['Precio'] === 'Gratis' && (
+                            <span className="absolute bottom-2 left-2 ml-6 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                              {t('Filters.Free')}
+                            </span>
+                          )}
+
+                        </div></td>
                       <td className="py-3 px-4 text-left">{event['Ubicación']}</td>
                       <td className="py-3 px-4 text-center">{event['Fecha']}</td>
                       <td className="py-3 px-4 text-center">
-                        {event['Precio'] === 'Gratis' ? 'Gratis' : `$${event['Precio']}`}
+                        <button
+                          onClick={() => window.open(event['Enlace'], '_blank')}
+                          className="bg-orange-500 hover:bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md shadow-gray-400 transform transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-1 hover:shadow-2xl"
+                        >
+                          {t('Table.Button')}
+                        </button>
                       </td>
                     </tr>
                   ))}
@@ -242,18 +256,20 @@ const Page = () => {
             </div>
 
             {/* Vista móvil */}
-            <div className="grid grid-cols-1 gap-4 md:hidden">
+            <div className="grid grid-cols-1 gap-4 md:hidden relative">
               {filteredEvents.map((event, index) => (
+
                 <div key={index} className="bg-transparent shadow-md rounded-lg p-4 flex flex-wrap">
                   <div className="flex items-center mb-4 flex-wrap justify-center">
                     <div className='w-full h-52 justify-center items-center flex flex-wrap'>
-                    <img
-                      src={event['Logo']}
-                      alt={event['Nombre del Evento']}
-                      className="w-auto h-32 object-cover rounded-lg "
-                    />
+                      <img
+                        src={event['Logo']}
+                        alt={event['Nombre del Evento']}
+                        className="w-auto h-32 object-cover rounded-lg "
+                      />
                     </div>
-                    <div className='animate-bounce bottom-4 right-4 bg-orange-500 rounded-full px-3 py-2 shadow-lg mt-4 mb-4 items-center justify-center flex'>
+
+                    <div className='bottom-4 right-4 bg-orange-500 rounded-full px-3 py-2 shadow-lg shadow-gray-400 mt-4 mb-4 items-center justify-center flex'>
                       <a
                         href={event['Enlace']}
                         target="_blank"
@@ -264,15 +280,19 @@ const Page = () => {
                     </div>
                   </div>
                   <div className="text-sm text-gray-600">
+
                     <p>
                       <strong>{t('Table.Location')}:</strong> {event['Ubicación']}
                     </p>
                     <p>
                       <strong>{t('Table.Date')}:</strong> {event['Fecha']}
                     </p>
-                    <p>
-                      <strong>{t('Table.Price')}:</strong>{' '}
-                      {event['Precio'] === 'Gratis' ? t('Filters.Free') : `$${event['Precio']}`}
+                    <p className='py-1'>
+                      {event['Precio'] === 'Gratis' && (
+                        <span className="mt-2 bg-transparent text-green-500 text-base font-bold rounded-full">
+                          {t('Filters.Free')}
+                        </span>
+                      )}
                     </p>
                   </div>
                 </div>

@@ -54,11 +54,11 @@ const Hero = () => {
   }, [carouselImages]);
 
   return (
-    <div className="bg-gray-50 font-normal relative ">
+    <div className="bg-gray-50 font-normal relative mt-20">
       {/* Carrusel de imágenes de fondo */}
       <div
         ref={containerRef}
-        className="absolute inset-x-0 top-0 z-0 overflow-hidden flex justify-center items-center h-40 md:h-52 rounded-lg"
+        className="absolute inset-x-0 top-0 z-0 overflow-hidden flex justify-center items-center h-40 md:h-56 rounded-lg"
       >
         <div
           className="flex gap-8 md:gap-12 lg:gap-12"
@@ -73,7 +73,7 @@ const Hero = () => {
               key={index}
               src={image}
               alt={`Carousel Image ${index + 1}`}
-              className="h-32 w-auto md:h-40 lg:h-36 object-contain rounded-lg opacity-70 hover:opacity-100 transition-opacity duration-300"
+              className="h-32 w-auto md:h-40 lg:h-40 object-contain rounded-lg opacity-70 hover:opacity-100 transition-opacity duration-300"
             />
 
           ))}
@@ -86,7 +86,7 @@ const Hero = () => {
           <img
             src="/logo.png"
             alt="Startups Calendar Logo"
-            className="w-56 h-auto md:w-64 md:mt-8"
+            className="w-56 h-auto md:w-96 md:mt-8"
           />
         </div>
       </section>

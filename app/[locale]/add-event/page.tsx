@@ -34,7 +34,7 @@ const AddEvent = () => {
   const [price, setPrice] = useState('');
   const [isPriceTBD, setIsPriceTBD] = useState(false);
   const [isFree, setIsFree] = useState(false);
-  const [currency, setCurrency] = useState('USD'); // Moneda seleccionada
+  const [currency, setCurrency] = useState(''); // Moneda seleccionada
   const [isInvitationOnly, setIsInvitationOnly] = useState(false); // Nuevo estado
 
 
@@ -570,85 +570,33 @@ const AddEvent = () => {
           {/* Precio del Evento */}
           <div className="mb-6">
             <h1 className="text-lg font-semibold mb-2">Precio del Evento</h1>
-            <div className="flex items-center gap-4 flex-wrap">
-              {/* Checkbox: Gratis */}
-              <div className="block text-gray-700 text-sm font-medium mr-8">
-                Gratis
-                <label className="flex items-center gap-2 text-sm text-gray-700">
-                  <input
-                    type="checkbox"
-                    checked={isFree}
-                    onChange={(e) => {
-                      setIsFree(e.target.checked);
-                      if (e.target.checked) setPrice('Gratis');
-                      else setPrice('');
-                    }}
-                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
-                  />
-                </label>
-              </div>
-              {/* Checkbox: Por definir */}
-              <div className="block text-gray-700 text-sm font-medium mr-8">
-                Por definir
-                <label className="flex items-center gap-2 text-sm text-gray-700">
-                  <input
-                    type="checkbox"
-                    checked={isPriceTBD}
-                    onChange={(e) => {
-                      setIsPriceTBD(e.target.checked);
-                      if (e.target.checked) {
-                        setPrice('Por definir');
-                        setIsFree(false); // Desmarcar "Gratis" si es Por definir
-                      } else {
-                        setPrice('');
-                      }
-                    }}
-                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
-                  />
-                </label>
-              </div>
-
-              {/* Input: Precio */}
-              <div className="flex-grow">
-                <label className="block text-gray-700 text-sm font-medium">Precio</label>
-                <input
-                  className={`rounded-lg w-full py-2 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isFree ? 'bg-gray-100 cursor-not-allowed' : ''
-                    }`}
-                  id="price"
-                  type="number"
-                  name="price"
-                  placeholder="Escribe el precio del evento $"
-                  value={isFree ? 'Gratis' : price}
-                  onChange={(e) => setPrice(e.target.value)}
-                  disabled={isFree || isPriceTBD}
-                  required={!isFree || !isPriceTBD}
-                />
+            <div className="relative">
+              <select
+                value={price} // Estado para controlar el selector
+                onChange={(e) => {
+                  const value = e.target.value;
+                  setPrice(value); // Actualiza el estado del precio
+                  setIsFree(value === 'Gratis'); // Actualiza si es Gratis
+                  setIsPriceTBD(value === 'Por definir'); // Actualiza si es Por definir
+                }}
+                className="block appearance-none w-full bg-white border border-gray-300 hover:border-blue-500 px-4 py-3 pr-8 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              >
+                <option value="Por definir">Por definir</option>
+                <option value="Pago">Pago</option>
+                <option value="Gratis">Gratis</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  className="fill-current h-4 w-4"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M5.516 7.548L10 11.486l4.484-3.938 1.032 1.152-5.516 4.832-5.516-4.832z" />
+                </svg>
               </div>
             </div>
           </div>
 
-
-          {/* Selección de Moneda */}
-          {!isFree && !isPriceTBD && (
-            <div className="mb-4">
-              <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="currency">
-                Moneda
-              </label>
-              <select
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                id="currency"
-                value={currency}
-                onChange={(e) => setCurrency(e.target.value)}
-              >
-                <option value="USD">USD (Dólar estadounidense)</option>
-                <option value="EUR">EUR (Euro)</option>
-                <option value="COP">COP (Peso colombiano)</option>
-                <option value="MXN">MXN (Peso mexicano)</option>
-                <option value="BRL">BRL (Real brasileño)</option>
-                <option value="ARS">ARS (Peso argentino)</option>
-              </select>
-            </div>
-          )}
 
           {/* Botón Enviar */}
           <div className="flex items-center justify-center py-4">
