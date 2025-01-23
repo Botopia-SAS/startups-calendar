@@ -54,19 +54,19 @@ const Header = () => {
           {/* Navigation Links */}
           <nav className="flex justify-end space-x-6">
             <a
-              href="/noticias"
+              href="/"
               className="text-gray-600 hover:text-blue-500 font-medium"
             >
               {t('Aboutus')}
             </a>
             <a
-              href="/blog"
+              href="/"
               className="text-gray-600 hover:text-blue-500 font-medium"
             >
               {t('Blog')}
             </a>
             <a
-              href="/aliados"
+              href="/"
               className="text-gray-600 hover:text-blue-500 font-medium"
             >
               {t('Partners')}
