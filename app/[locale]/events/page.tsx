@@ -273,11 +273,11 @@ const Page = () => {
 
                 <div key={index} className="bg-transparent shadow-md rounded-lg p-4 flex flex-wrap">
                   <div className="flex items-center mb-4 flex-wrap justify-center">
-                    <div className='w-full h-52 justify-center items-center flex flex-wrap'>
+                    <div className="w-full h-52 flex justify-center items-center overflow-hidden">
                       <img
                         src={event['Logo']}
                         alt={event['Nombre del Evento']}
-                        className="w-auto h-32 object-cover rounded-lg "
+                        className="max-w-full max-h-full object-contain rounded-lg"
                       />
                     </div>
 
