@@ -33,6 +33,12 @@ const Page = () => {
   const locale = pathname ? pathname.split('/')[1] || 'es' : 'es';
   const [currentLanguage, setCurrentLanguage] = useState(locale);
 
+  const formatDate = (isoDate: string) => {
+    const [year, month, day] = isoDate.split('-'); // Divide la fecha por "-"
+    return `${day}/${month}/${year}`; // Reorganiza en el formato deseado
+  };
+
+
   useEffect(() => {
     const fetchEvents = async () => {
       try {
@@ -40,7 +46,6 @@ const Page = () => {
 
         console.log(response);
         const data = await response.json();
-        console.log(data)
         if (data.success) {
           setEvents(data.events);
           setFilteredEvents(data.events);
@@ -82,13 +87,17 @@ const Page = () => {
     }
 
     // Filtrar por precio
+    // Filtro por precio
     if (priceFilter) {
-      if (priceFilter === 'Gratis') {
-        filtered = filtered.filter((event) => event['Precio'] === 'Gratis');
-      } else if (priceFilter === 'Pagado') {
-        filtered = filtered.filter((event) => event['Precio'] !== 'Gratis');
-      }
+      filtered = filtered.filter((event) => {
+        const price = event['Precio'] || '';
+        if (priceFilter === 'Gratis' || priceFilter === 'Free') return price === 'Gratis';
+        if (priceFilter === 'Pago' || priceFilter === 'Paid') return price !== 'Gratis';
+        if (priceFilter === 'Por definir') return price === 'Por definir';
+        return false;
+      });
     }
+
 
     setFilteredEvents(filtered);
   }, [search, locationFilter, monthFilter, priceFilter, events]);
@@ -120,7 +129,7 @@ const Page = () => {
   return (
 
     <div className=" py-10">
-      <div className="px-4 md:px-1   md:max-w-7xl mx-auto">
+      <div className="px-8">
         <h1 className="text-3xl font-bold text-center mb-6 text-black">{t('Title')}</h1>
 
         {/* Filtro de meses */}
@@ -204,12 +213,12 @@ const Page = () => {
             <div className="hidden md:block overflow-x-auto">
               <table className="w-full border-collapse bg-white shadow-md rounded-lg">
                 <thead>
-                  <tr className="bg-transparent text-gray-600 uppercase text-sm leading-normal">
-                    <th className="py-3 px-6 text-left w-3/12"></th>
-                    <th className="py-3 px-6 text-left w-3/12">{t('Table.Event')}</th>
-                    <th className="py-3 px-6 text-left w-2/12">{t('Table.Location')}</th>
-                    <th className="py-3 px-6 text-center w-2/12">{t('Table.Date')}</th>
-                    <th className="py-3 px-6 text-center">{t('Table.ViewSite')}</th>
+                  <tr className="bg-transparent text-gray-600 uppercase text-base leading-normal">
+                    <th className="py-3 px-1 text-left w-2/12"></th>
+                    <th className="py-3 px-1 text-left w-3/12">{t('Table.Event')}</th>
+                    <th className="py-3 px-1 text-left w-3/12">{t('Table.Location')}</th>
+                    <th className="py-3 px-1 text-center w-1/12">{t('Table.Date')}</th>
+                    <th className="py-3 px-1 text-center w-2/12">{t('Table.ViewSite')}</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
@@ -229,18 +238,21 @@ const Page = () => {
                             href={event['Enlace']}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-black hover:underline font-bold flex flex-wrap"
+                            className="text-black hover:underline font-bold flex flex-wrap text-xl"
                           >{event['Nombre del Evento']}
                           </a>
                           {event['Precio'] === 'Gratis' && (
-                            <span className="absolute bottom-2 left-2 ml-6 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
+                            <span className="absolute bottom-2 left-2 ml-6 bg-green-500 text-white text-base px-2 py-1 rounded-full font-bold">
                               {t('Filters.Free')}
                             </span>
                           )}
 
                         </div></td>
-                      <td className="py-3 px-4 text-left">{event['Ubicación']}</td>
-                      <td className="py-3 px-4 text-center">{event['Fecha']}</td>
+                      <td className="py-3 px-4 text-left text-lg">{event['Ubicación']}</td>
+                      <td className="py-3 px-4 text-center text-lg">
+                        {formatDate(event['Fecha'])}
+                      </td>
+
                       <td className="py-3 px-4 text-center">
                         <button
                           onClick={() => window.open(event['Enlace'], '_blank')}
