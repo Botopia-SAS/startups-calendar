@@ -1,6 +1,7 @@
 'use client';
 import React, { FormEvent, useState } from 'react';
 import useSubmitEvent from '@/hooks/useSubmitEvent';
+import Link from 'next/link';
 
 const AddEvent = () => {
 
@@ -150,6 +151,8 @@ const AddEvent = () => {
     setIsFree(false);
     setIsLoading(false);
   }
+
+  const locale = 'en'; // Define the locale variable
 
   return (
     <section className="bg-gray-50 min-h-screen py-24">
@@ -615,7 +618,19 @@ const AddEvent = () => {
           </div>
           {message && <p className="mt-4 text-center text-gray-700">{message}</p>}
         </form>
+        {/* Nota de términos y condiciones */}
+        <p className="text-center mt-4 text-gray-500 text-sm">
+          {"*Al enviar tus datos a Startups Calendar aceptas nuestros"}{' '}
+          <Link
+            href={`/${locale}/terms-and-conditions`}
+            className="text-orange-500 hover:underline">
+            {"Términos y Condiciones"}
+          </Link>
+        </p>
+
+        {message && <p className="text-center mt-4 text-gray-700">{message}</p>}
       </div>
+
     </section>
   );
 };

@@ -3,7 +3,7 @@ import React from 'react';
 
 const TermsAndConditions = () => {
     return (
-        <section className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6">
+        <section className="min-h-screen bg-gray-50 py-20 px-4 sm:px-6">
             <div className="max-w-prose mx-auto">
 
                 {/* Título */}

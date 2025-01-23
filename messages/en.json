@@ -55,7 +55,8 @@
             "Date": "Date",
             "Price": "Price",
             "Actions": "Actions",
-            "ViewSite": "Event Site"
+            "ViewSite": "Event Site",
+            "Button": "Go to event"
         }
     },
     "Newsletter": {
