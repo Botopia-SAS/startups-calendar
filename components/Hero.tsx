@@ -3,6 +3,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import '../app/[locale]/globals.css';
+import UserDataModal from './UserDataModal';
 
 const Hero = () => {
   const t = useTranslations('Hero');
@@ -121,6 +122,8 @@ const Hero = () => {
           </div>
         </div>
       </section>
+
+      <UserDataModal />
     </div>
   );
 };
