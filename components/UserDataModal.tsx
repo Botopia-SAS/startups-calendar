@@ -66,10 +66,11 @@ const UserDataModal = () => {
     if (!showModal) return null;
 
     return (
-        <div className="fixed p-8 inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 py-10">
-            <div className="bg-white rounded-lg shadow-xl p-4 sm:p-8 max-w-md w-11/12 sm:max-w-lg sm:w-full relative">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 p-4">
+            <div className="bg-white rounded-lg shadow-xl p-4 sm:p-8 max-w-md w-full sm:max-w-lg max-h-[90vh] overflow-auto relative pt-20">
+
                 {/* Icono decorativo */}
-                <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
+                <div className="absolute top-1 left-1/2 transform -translate-x-1/2">
                     <div className="bg-orange-500 rounded-full p-4 shadow-lg">
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -89,7 +90,7 @@ const UserDataModal = () => {
                 </div>
 
                 {/* Contenido */}
-                <h2 className="text-2xl font-bold text-gray-800 text-center mt-10 mb-4">
+                <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
                     ¡Bienvenido a Startups Calendar!
                 </h2>
                 <p className="text-gray-600 text-center mb-6 leading-relaxed">
