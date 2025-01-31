@@ -66,7 +66,7 @@ const UserDataModal = () => {
     if (!showModal) return null;
 
     return (
-        <div className="fixed p-8 inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="fixed p-8 inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 py-10">
             <div className="bg-white rounded-lg shadow-xl p-4 sm:p-8 max-w-md w-11/12 sm:max-w-lg sm:w-full relative">
                 {/* Icono decorativo */}
                 <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">

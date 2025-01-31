@@ -33,14 +33,22 @@ const Page = () => {
   const locale = pathname ? pathname.split('/')[1] || 'es' : 'es';
   const [currentLanguage, setCurrentLanguage] = useState(locale);
 
-  const formatDate = (isoDate: string) => {
+  const formatDate = (isoDate: string, locale: string) => {
     const date = new Date(isoDate);
     const day = date.getDate();
-    const month = date.toLocaleString('es-ES', { month: 'long' }); // Obtiene el nombre del mes en español
-    return `${day} de ${month}`;
-  };
-  
+    let month = date.toLocaleString(locale, { month: 'long' }); // Obtiene el nombre del mes en el idioma actual
 
+    // Capitalizar la primera letra del mes
+    month = month.charAt(0).toUpperCase() + month.slice(1);
+
+    return `${month} ${day} `;
+  };
+
+  const capitalizeEventName = (name: string) => {
+    return name
+      .toLowerCase() // Asegura que el resto del texto esté en minúsculas
+      .replace(/\b\w/g, char => char.toUpperCase()); // Convierte la primera letra de cada palabra en mayúscula
+  };
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -132,36 +140,36 @@ const Page = () => {
   return (
 
     <div className=" py-4">
-        <h1 className="text-3xl font-bold text-center mb-6 text-black">{t('Title')}</h1>
+      <h1 className="text-3xl font-bold text-center mb-6 text-black">{t('Title')}</h1>
 
-        {/* Filtro de meses */}
-        <div className="text-xl flex justify-between overflow-x-auto space-x-2 py-12 px-8 gap-4">
-          {[
-            { value: '1', label: t('Months.January') },
-            { value: '2', label: t('Months.February') },
-            { value: '3', label: t('Months.March') },
-            { value: '4', label: t('Months.April') },
-            { value: '5', label: t('Months.May') },
-            { value: '6', label: t('Months.June') },
-            { value: '7', label: t('Months.July') },
-            { value: '8', label: t('Months.August') },
-            { value: '9', label: t('Months.September') },
-            { value: '10', label: t('Months.October') },
-            { value: '11', label: t('Months.November') },
-            { value: '12', label: t('Months.December') },
-          ].map((month) => (
-            <button
-              key={month.value}
-              onClick={() => setMonthFilter(month.value)}
-              className={`px-3 py-2 rounded-full text-m font-medium shadow-md shadow-gray-400 ${monthFilter === month.value
-                ? 'bg-green-800 text-white scale-125 transition-all -translate-y-2 shadow-xl shadow-gray-700'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:scale-110 transition-all' 
-                }`}
-            >
-              {month.label}
-            </button>
-          ))}
-        </div>
+      {/* Filtro de meses */}
+      <div className="text-xl flex justify-between overflow-x-auto space-x-2 py-12 px-8 gap-4">
+        {[
+          { value: '1', label: t('Months.January') },
+          { value: '2', label: t('Months.February') },
+          { value: '3', label: t('Months.March') },
+          { value: '4', label: t('Months.April') },
+          { value: '5', label: t('Months.May') },
+          { value: '6', label: t('Months.June') },
+          { value: '7', label: t('Months.July') },
+          { value: '8', label: t('Months.August') },
+          { value: '9', label: t('Months.September') },
+          { value: '10', label: t('Months.October') },
+          { value: '11', label: t('Months.November') },
+          { value: '12', label: t('Months.December') },
+        ].map((month) => (
+          <button
+            key={month.value}
+            onClick={() => setMonthFilter(month.value)}
+            className={`px-3 py-2 rounded-full text-m font-medium shadow-md shadow-gray-400 ${monthFilter === month.value
+              ? 'bg-green-800 text-white scale-125 transition-all -translate-y-2 shadow-xl shadow-gray-700'
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:scale-110 transition-all'
+              }`}
+          >
+            {month.label}
+          </button>
+        ))}
+      </div>
 
       <div className="px-6">
 
@@ -254,7 +262,7 @@ const Page = () => {
                         </div></td>
                       <td className="py-3 px-4 text-left text-lg">{event['Ubicación']}</td>
                       <td className="py-3 px-4 text-center text-lg">
-                        {formatDate(event['Fecha'])}
+                        {formatDate(event['Fecha'], currentLanguage)}
                       </td>
 
                       <td className="py-3 px-4 text-center">
@@ -301,7 +309,9 @@ const Page = () => {
                       <strong>{t('Table.Location')}:</strong> {event['Ubicación']}
                     </p>
                     <p>
-                      <strong>{t('Table.Date')}:</strong> {event['Fecha']}
+                      <p>
+                        <strong>{t('Table.Date')}:</strong> {formatDate(event['Fecha'], currentLanguage)}
+                      </p>
                     </p>
                     <p className='py-1'>
                       {event['Precio'] === 'Gratis' && (
