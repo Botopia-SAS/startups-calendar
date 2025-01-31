@@ -34,9 +34,12 @@ const Page = () => {
   const [currentLanguage, setCurrentLanguage] = useState(locale);
 
   const formatDate = (isoDate: string) => {
-    const [year, month, day] = isoDate.split('-'); // Divide la fecha por "-"
-    return `${day}/${month}/${year}`; // Reorganiza en el formato deseado
+    const date = new Date(isoDate);
+    const day = date.getDate();
+    const month = date.toLocaleString('es-ES', { month: 'long' }); // Obtiene el nombre del mes en español
+    return `${day} de ${month}`;
   };
+  
 
 
   useEffect(() => {
@@ -128,12 +131,11 @@ const Page = () => {
 
   return (
 
-    <div className=" py-10">
-      <div className="px-8">
+    <div className=" py-4">
         <h1 className="text-3xl font-bold text-center mb-6 text-black">{t('Title')}</h1>
 
         {/* Filtro de meses */}
-        <div className="text-xl flex justify-between overflow-x-auto space-x-2 mb-6 rounded-lg p-4">
+        <div className="text-xl flex justify-between overflow-x-auto space-x-2 py-12 px-8 gap-4">
           {[
             { value: '1', label: t('Months.January') },
             { value: '2', label: t('Months.February') },
@@ -151,9 +153,9 @@ const Page = () => {
             <button
               key={month.value}
               onClick={() => setMonthFilter(month.value)}
-              className={`px-4 py-2 rounded-full text-m font-medium shadow-md shadow-gray-400 ${monthFilter === month.value
-                ? 'bg-blue-500 text-white'
-                : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              className={`px-3 py-2 rounded-full text-m font-medium shadow-md shadow-gray-400 ${monthFilter === month.value
+                ? 'bg-green-800 text-white scale-125 transition-all -translate-y-2 shadow-xl shadow-gray-700'
+                : 'bg-gray-200 text-gray-700 hover:bg-gray-300 hover:scale-110 transition-all' 
                 }`}
             >
               {month.label}
@@ -161,8 +163,10 @@ const Page = () => {
           ))}
         </div>
 
+      <div className="px-6">
+
         {/* Filtros */}
-        <div className="bg-transparent shadow-md rounded-lg p-4 mb-6">
+        <div className="bg-transparent shadow-md rounded-lg p-4 mb-6 px-4">
           <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {/* Buscar por nombre */}
             <input
@@ -238,7 +242,7 @@ const Page = () => {
                             href={event['Enlace']}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-black hover:underline font-bold flex flex-wrap text-xl"
+                            className="text-black hover:underline font-medium flex flex-wrap text-xl"
                           >{event['Nombre del Evento']}
                           </a>
                           {event['Precio'] === 'Gratis' && (
@@ -256,7 +260,7 @@ const Page = () => {
                       <td className="py-3 px-4 text-center">
                         <button
                           onClick={() => window.open(event['Enlace'], '_blank')}
-                          className="bg-orange-500 hover:bg-blue-500 text-white py-2 px-4 rounded-lg shadow-md shadow-gray-400 transform transition-all duration-300 ease-in-out hover:scale-105 hover:-translate-y-1 hover:shadow-2xl"
+                          className="bg-orange-500 hover:bg-green-800 text-white font-medium text-lg py-2 px-4 rounded-lg shadow-md shadow-gray-400 transform transition-all duration-300 ease-in-out hover:scale-110 hover:-translate-y-2 hover:shadow-2xl"
                         >
                           {t('Table.Button')}
                         </button>
@@ -281,12 +285,12 @@ const Page = () => {
                       />
                     </div>
 
-                    <div className='bottom-4 right-4 bg-orange-500 rounded-full px-3 py-2 shadow-lg shadow-gray-400 mt-4 mb-4 items-center justify-center flex'>
+                    <div className='bg-orange-500 rounded-full px-4 py-2 shadow-lg shadow-gray-400 mt-4 mb-4 items-center justify-center flex'>
                       <a
                         href={event['Enlace']}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white hover:underline font-bold flex flex-wrap"
+                        className="text-white hover:underline font-bold flex flex-wrap px-4"
                       >{event['Nombre del Evento']}
                       </a>
                     </div>

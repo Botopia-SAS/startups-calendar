@@ -539,7 +539,7 @@ const AddEvent = () => {
             <div className="flex items-center gap-4 flex-wrap">
               {/* Checkbox: Invitación */}
               <div className="block text-gray-700 text-sm font-medium mr-8">
-                Invitación
+                Solo por <br /> invitación
                 <label className="flex items-center gap-2 text-sm text-gray-700">
                   <input
                     type="checkbox"
