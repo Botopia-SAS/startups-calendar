@@ -68,27 +68,6 @@ const UserDataModal = () => {
     return (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 px-4">
             <div className="bg-white rounded-lg shadow-xl p-4 sm:p-8 max-w-md w-full sm:max-w-lg max-h-[90vh] overflow-auto relative pt-20">
-
-                {/* Icono decorativo */}
-                <div className="absolute top-1 left-1/2 transform -translate-x-1/2">
-                    <div className="bg-orange-500 rounded-full p-4 shadow-lg">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            className="h-8 w-8 text-white"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v7a2 2 0 01-2 2H6a2 2 0 01-2-2v-7m16 0H4"
-                            />
-                        </svg>
-                    </div>
-                </div>
-
                 {/* Contenido */}
                 <h2 className="text-2xl font-bold text-gray-800 text-center mb-4">
                     ¡Bienvenido a Startups Calendar!
