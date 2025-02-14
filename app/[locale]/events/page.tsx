@@ -228,9 +228,10 @@ const Page = () => {
                   <tr className="bg-transparent text-gray-600 uppercase text-base leading-normal">
                     <th className="py-3 px-1 text-left w-2/12"></th>
                     <th className="py-3 px-1 text-left w-3/12">{t('Table.Event')}</th>
-                    <th className="py-3 px-1 text-left w-3/12">{t('Table.Location')}</th>
+                    <th className="py-3 px-1 text-center w-3/12">{t('Table.Location')}</th>
                     <th className="py-3 px-1 text-center w-1/12">{t('Table.Date')}</th>
                     <th className="py-3 px-1 text-center w-2/12">{t('Table.ViewSite')}</th>
+                    <th className="py-3 px-1 text-center w-1/12">{t('Table.Cost')}</th>
                   </tr>
                 </thead>
                 <tbody className="text-gray-600 text-sm font-light">
@@ -244,24 +245,19 @@ const Page = () => {
                           className="w-auto h-32 object-fill rounded"
                         />
                       </td>
-                      <td className="py-3 px-6 text-left relative">
+                      <td className="py-3 px-1 text-left relative">
                         <div className='bg-transparent rounded-full py-2 px-2 mt-4 mb-4 items-center justify-start flex'>
                           <a
                             href={event['Enlace']}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-black hover:underline font-medium flex flex-wrap text-xl"
+                            className="text-black hover:text-green-700 font-medium flex flex-wrap text-lg"
                           >{event['Nombre del Evento']}
                           </a>
-                          {event['Precio'] === 'Gratis' && (
-                            <span className="absolute bottom-2 left-2 ml-6 bg-green-500 text-white text-base px-2 py-1 rounded-full font-bold">
-                              {t('Filters.Free')}
-                            </span>
-                          )}
-
-                        </div></td>
-                      <td className="py-3 px-4 text-left text-lg">{event['Ubicación']}</td>
-                      <td className="py-3 px-4 text-center text-lg">
+                        </div>
+                        </td>
+                      <td className="py-3 text-center text-lg">{event['Ubicación']}</td>
+                      <td className="py-3 px-2 text-center text-lg">
                         {formatDate(event['Fecha'], currentLanguage)}
                       </td>
 
@@ -272,6 +268,18 @@ const Page = () => {
                         >
                           {t('Table.Button')}
                         </button>
+                      </td>
+                      <td className="py-3 px-4 text-center">
+                      {event['Precio'] === 'Gratis' && (
+                            <span className="relative text-green-700 text-xl font-bold">
+                              {t('Filters.Free')}
+                            </span>
+                          )}
+                          {event['Precio'] !== 'Gratis' && (
+                            <span className="relative text-cyan-400 text-xl font-bold">
+                              {t('Filters.Paid')}
+                            </span>
+                          )}
                       </td>
                     </tr>
                   ))}
@@ -309,9 +317,7 @@ const Page = () => {
                       <strong>{t('Table.Location')}:</strong> {event['Ubicación']}
                     </p>
                     <p>
-                      <p>
                         <strong>{t('Table.Date')}:</strong> {formatDate(event['Fecha'], currentLanguage)}
-                      </p>
                     </p>
                     <p className='py-1'>
                       {event['Precio'] === 'Gratis' && (

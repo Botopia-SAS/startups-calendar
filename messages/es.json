@@ -16,7 +16,9 @@
     "Policies": "Políticas",
     "Privacy": "Privacidad",
     "Contact": "Contacto",
-    "Copyright": "© 2025 Startups Calendar"
+    "Copyright": "© 2025 Startups Calendar",
+    "Botopia": "Por por Botopia Technology",
+        "Link": "/creditos"
   },
   "Events": {
     "Title": "Calendario de Eventos",
@@ -28,7 +30,7 @@
       "Month": "Filtrar por mes",
       "Price": "Filtrar por precio",
       "Free": "Gratis",
-      "Paid": "Pagado",
+      "Paid": "Pago",
       "Clear": "Quitar filtros"
     },
     "Months": {
@@ -55,7 +57,8 @@
       "Date": "Fecha",
       "Price": "Precio",
       "ViewSite": "Enlace",
-      "Button":"Ir al Evento"
+      "Button":"Ir al Evento",
+      "Cost":"Costo"
     }
   },
   "Newsletter": {

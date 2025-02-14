@@ -14,6 +14,7 @@ const AddEvent = () => {
   const [location, setLocation] = useState('');
   const [isDateTBD, setIsDateTBD] = useState(false); // Por definir para Fecha
   const [isEndDateTBD, setEndIsDateTBD] = useState(false); // Por definir para Fecha
+  const [isEndDateNA, setIsEndDateNA] = useState(false);
   const [isTimeTBD, setIsTimeTBD] = useState(false); // Por definir para Hora
   const [isEndTimeTBD, setIsEndTimeTBD] = useState(false); // Por definir para Hora de Finalización
   const [isLocationTBD, setIsLocationTBD] = useState(false); // Por definir para Ubicación
@@ -78,7 +79,7 @@ const AddEvent = () => {
       name,
       description,
       date: isDateTBD ? 'Por definir' : date,
-      endDate: isEndDateTBD ? 'Por definir' : endDate,
+      endDate: isEndDateTBD ? 'Por definir' : isEndDateNA ? 'No aplica' : endDate,
       time: isTimeTBD ? 'Por definir' : time,
       endTime: isEndTimeTBD ? 'Por definir' : endTime,
       location: isLocationTBD ? 'Por definir' : location,
@@ -360,7 +361,6 @@ const AddEvent = () => {
 
               {/* Input: Fecha */}
               <div className="flex-grow">
-                <label className="block text-gray-700 text-sm font-medium mb-2">Fecha</label>
                 <input
                   type="date"
                   className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isDateTBD ? 'bg-gray-100 cursor-not-allowed' : ''
@@ -385,7 +385,26 @@ const AddEvent = () => {
                   <input
                     type="checkbox"
                     checked={isEndDateTBD}
-                    onChange={(e) => setEndIsDateTBD(e.target.checked)}
+                    onChange={(e) => {
+                      setEndIsDateTBD(e.target.checked);
+                      if (e.target.checked) setIsEndDateNA(false); // Desactivar "No aplica" si se marca "Por definir"
+                    }}
+                    className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
+                  />
+                </label>
+              </div>
+
+              {/* Nuevo Checkbox: No aplica */}
+              <div className="block text-gray-700 text-sm font-medium mr-8">
+                No aplica
+                <label className="flex items-center gap-2 text-sm text-gray-700">
+                  <input
+                    type="checkbox"
+                    checked={isEndDateNA}
+                    onChange={(e) => {
+                      setIsEndDateNA(e.target.checked);
+                      if (e.target.checked) setEndIsDateTBD(false); // Desactivar "Por definir" si se marca "No aplica"
+                    }}
                     className="h-8 w-8 text-blue-600 border-gray-300 rounded focus:ring-blue-500 mt-2"
                   />
                 </label>
@@ -393,7 +412,6 @@ const AddEvent = () => {
 
               {/* Input: Fecha */}
               <div className="flex-grow">
-                <label className="block text-gray-700 text-sm font-medium mb-2">Fecha</label>
                 <input
                   type="date"
                   className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEndDateTBD ? 'bg-gray-100 cursor-not-allowed' : ''
@@ -428,7 +446,6 @@ const AddEvent = () => {
 
               {/* Input: Hora */}
               <div className="flex-grow">
-                <label className="block text-gray-700 text-sm font-medium mb-2">Hora</label>
                 <input
                   type="time"
                   className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isTimeTBD ? 'bg-gray-100 cursor-not-allowed' : ''
@@ -462,7 +479,6 @@ const AddEvent = () => {
 
               {/* Input: Hora de Finalización */}
               <div className="flex-grow">
-                <label className="block text-gray-700 text-sm font-medium mb-2">Hora</label>
                 <input
                   type="time"
                   className={`rounded-lg w-full py-4 px-3 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 ${isEndTimeTBD ? 'bg-gray-100 cursor-not-allowed' : ''

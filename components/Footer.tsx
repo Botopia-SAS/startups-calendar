@@ -1,11 +1,12 @@
 'use client';
 
 import React from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 
 const Footer = () => {
   const t = useTranslations('Footer'); // Traducciones del namespace 'Footer'
-
+    const locale = useLocale();
+    
   return (
     <footer className="bg-gray-50 text-black py-4 w-full">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
@@ -17,6 +18,14 @@ const Footer = () => {
             className="h-8"
           />
           <span className="text-sm md:text-base">{t('Copyright')}</span>
+        </div>
+        <div>
+          <a
+            href={`/${locale}/creditos`}
+            className="text-sm text-purple-400 hover:text-purple-800"
+          >
+            {t('Botopia')}
+          </a>
         </div>
 
         {/* Navegación */}
