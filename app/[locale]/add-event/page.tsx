@@ -419,7 +419,7 @@ const AddEvent = () => {
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
                   disabled={isEndDateTBD}
-                  required={!isEndDateTBD}
+                  required={!isEndDateTBD && !isEndDateNA}
                 />
               </div>
             </div>
