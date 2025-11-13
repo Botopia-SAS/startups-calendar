@@ -28,7 +28,7 @@ const CreditosBotopia = () => {
             {t("CTA.More")}
           </a>
           <a
-            href="https://botopia.tech/contacto"
+            href="https://www.botopia.tech/es/contactUs"
             target="_blank"
             rel="noopener noreferrer"
             className=" hover:bg-purple-600 text-black py-3 px-4 sm:px-6 rounded-lg shadow-lg shadow-gray-500 transition-all duration-300 text-sm w-full text-center"

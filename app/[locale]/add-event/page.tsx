@@ -344,7 +344,7 @@ const AddEvent = () => {
 
           {/* Fecha */}
           <div className="mb-6">
-            <h1 className="text-lg font-semibold mb-2">Fecha de inicio</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Fecha de inicio</h1>
             <div className="flex items-center gap-4 flex-wrap">
               {/* Checkbox: Por definir */}
               <div className="block text-gray-700 text-sm font-medium mr-8">
@@ -376,7 +376,7 @@ const AddEvent = () => {
 
           {/* Fecha */}
           <div className="mb-10">
-            <h1 className="text-lg font-semibold mb-2">Fecha de finalización</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Fecha de finalización</h1>
             <div className="flex items-center gap-4 flex-wrap">
               {/* Checkbox: Por definir */}
               <div className="block text-gray-700 text-sm font-medium mr-8">
@@ -429,7 +429,7 @@ const AddEvent = () => {
 
           {/* Hora */}
           <div className="mb-6">
-            <h1 className="text-lg font-semibold mb-2">Hora de inicio</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Hora de inicio</h1>
             <div className="flex items-center gap-4 flex-wrap">
               {/* Checkbox: Por definir */}
               <div className='block text-gray-700 text-sm font-medium mr-8'>
@@ -462,7 +462,7 @@ const AddEvent = () => {
 
           {/* Hora de Finalización */}
           <div className="mb-10">
-            <h1 className="text-lg font-semibold mb-2">Hora de Finalización</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Hora de Finalización</h1>
             <div className="flex items-center gap-4 flex-wrap">
               {/* Checkbox: Por definir */}
               <div className="block text-gray-700 text-sm font-medium mr-8">
@@ -495,7 +495,7 @@ const AddEvent = () => {
 
           {/* Ubicación */}
           <div className="mb-6">
-            <h1 className="text-lg font-semibold mb-2">Ubicación</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Ubicación</h1>
             <div className="flex items-center gap-4 flex-wrap">
               {/* Checkbox: Por definir */}
               <div className="block text-gray-700 text-sm font-medium mr-8">
@@ -529,7 +529,7 @@ const AddEvent = () => {
 
 
           <div className="mb-4">
-            <h1 className="text-lg font-semibold mb-2">Logo del Evento</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Logo del Evento</h1>
             <input
               className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               id="logo"
@@ -551,7 +551,7 @@ const AddEvent = () => {
 
           {/* Enlace del Evento */}
           <div className="mb-6">
-            <h1 className="text-lg font-semibold mb-2">Enlace del Evento</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Enlace del Evento</h1>
             <div className="flex items-center gap-4 flex-wrap">
               {/* Checkbox: Invitación */}
               <div className="block text-gray-700 text-sm font-medium mr-8">
@@ -588,7 +588,7 @@ const AddEvent = () => {
 
           {/* Precio del Evento */}
           <div className="mb-6">
-            <h1 className="text-lg font-semibold mb-2">Precio del Evento</h1>
+            <h1 className="text-lg font-semibold mb-2 text-black">Precio del Evento</h1>
             <div className="relative">
               <select
                 value={price} // Estado para controlar el selector
